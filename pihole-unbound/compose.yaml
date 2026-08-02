@@ -1,0 +1,40 @@
+services:
+  pihole:
+    container_name: pihole2026050
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "591:80/tcp"
+      - "8920:443/tcp"
+    environment:
+      TZ: "Europe/London"  # Replace with your timezone
+      FTLCONF_webserver_api_password: ${PIHOLE_PASSWORD}  # Change this!
+      DNSMASQ_LISTENING: "all"
+      PIHOLE_DNS_1: "unbound#53"  # Point to unbound container
+    volumes:
+      - /home/fooney/raspberrypi-homelab-data/pihole:/etc/pihole
+      - /home/fooney/raspberrypi-homelab-data/dnsmasq.d:/etc/dnsmasq.d
+    restart: unless-stopped
+    networks:
+      dns_network:
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+      - CAP_SYS_NICE
+      - CAP_SYS_TIME
+    security_opt:
+      - seccomp:unconfined
+    depends_on:
+      - unbound
+  unbound:
+    container_name: unbound2026050
+    image: klutchell/unbound:latest
+    volumes:
+      - ./unbound:/etc/unbound/custom.conf.d
+    restart: unless-stopped
+    networks:
+      dns_network:
+networks:
+  dns_network:
+    driver: bridge
