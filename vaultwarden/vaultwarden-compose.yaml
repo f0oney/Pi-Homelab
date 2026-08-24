@@ -1,0 +1,16 @@
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: unless-stopped
+    dns:
+      - 172.21.0.3
+      - 192.168.50.44
+    environment:
+      DOMAIN: ${DOMAIN}  # enter your domain
+      SIGNUPS_ALLOWED: "false"                  # disable after creating your first account
+      ADMIN_TOKEN: ${ARGON2_HASH}
+    volumes:
+      - /home/fooney/raspberrypi-homelab-data/vaultwarden:/data
+    ports:
+      - "8124:80/tcp"
