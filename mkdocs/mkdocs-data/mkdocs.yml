@@ -1,0 +1,44 @@
+site_name: My Docs
+
+nav:
+  - Home: Home.md
+  - About: About.md
+  - Raspberry Pi:
+      - Github:
+           - 1. Initial Connection Setup.md
+           - 2. Project Repository Setup.md
+           - 3. Shared Repository Files.md
+      - Pihole & Unbound:
+           - 1. Installation for Pihole.md
+           - 2. Unbound Config Files.md
+           - 3. Router DNS Configuration.md
+           - 4. Pihole Web Interface Login & Checks.md
+           - 5. DNS Settings.md
+           - 6. Domain Block Lists.md
+      - Nginx:
+           - Server Block Service Examples:
+                 - Portainer Server Block.md
+                 - Proxmox Server Block.md
+                 - Vaultwarden Server Block.md
+           - 1. Installation.md
+           - 2. Configuration Files & HTTP.md
+           - 3. OpenSSL Self-Signed Certificates.md
+           - 4. HTTPS Configuration.md
+           - Router HTTPS Configuration.md
+      - PiVPN:
+           - 1. Router DDNS & Port Forwarding.md
+           - 2. Installation for PiVPN.md
+           - 3. Create a Client.md
+      - Vaultwarden:
+           - 1. Installation & Setup.md
+           - 2. Admin Portal.md
+      - Portainer Agent:
+           - 1. Portainer Agent Installation.md
+      - Backups:
+           - 1. RClone Setup.md
+           - 2. Schedule using Crontab.md
+theme:
+  name: 'material'
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
