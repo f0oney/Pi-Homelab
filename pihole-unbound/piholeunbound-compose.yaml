@@ -13,8 +13,8 @@ services:
       DNSMASQ_LISTENING: "all"
       PIHOLE_DNS_1: "unbound#53"  # Point to unbound container
     volumes:
-      - /home/fooney/raspberrypi-homelab-data/pihole:/etc/pihole
-      - /home/fooney/raspberrypi-homelab-data/dnsmasq.d:/etc/dnsmasq.d
+      - /home/user/PiProject-homelab-data/pihole:/etc/pihole
+      - /home/user/PiProject-homelab-data/dnsmasq.d:/etc/dnsmasq.d
     restart: unless-stopped
     networks:
       dns_network:
@@ -31,7 +31,7 @@ services:
     container_name: unbound2026050
     image: klutchell/unbound:latest
     volumes:
-      - /home/fooney/raspberrypi-homelab-data/unbound:/etc/unbound/custom.conf.d
+      - /home/user/PiProject-homelab-data/unbound:/etc/unbound/custom.conf.d
     restart: unless-stopped
     networks:
       dns_network:
