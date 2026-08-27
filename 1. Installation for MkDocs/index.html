@@ -9,6 +9,10 @@
       
       
       
+        <link rel="prev" href="../3.%20Shared%20Repository%20Files/">
+      
+      
+        <link rel="next" href="../2.%20Page%20Setups/">
       
       
         
@@ -19,7 +23,7 @@
     
     
       
-        <title>2. Installation - My Docs</title>
+        <title>1. Installation for MkDocs - My Docs</title>
       
     
     
@@ -70,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#please-note-this-guide-assumes-you-have-already-setup-pihole-unbound-if-not-please-refer-to-raspberry-pipihole-unbound1-installation1-installation" class="md-skip">
+        <a href="#file-structure" class="md-skip">
           Skip to content
         </a>
       
@@ -106,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              2. Installation
+              1. Installation for MkDocs
             
           </span>
         </div>
@@ -265,18 +269,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -297,7 +303,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -451,18 +457,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
         
           
           <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
@@ -483,7 +491,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -498,10 +506,35 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../1.%20Installation%20for%20MkDocs/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Installation for MkDocs
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -517,6 +550,57 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#file-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-compose-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker Compose File
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updating-mkdocs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Updating MKDocs
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1619,10 +1703,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#please-note-this-guide-assumes-you-have-already-setup-pihole-unbound-if-not-please-refer-to-raspberry-pipihole-unbound1-installation1-installation" class="md-nav__link">
+  <a href="#file-structure" class="md-nav__link">
     <span class="md-ellipsis">
       
-        PLEASE NOTE: This guide assumes you have already setup Pihole + Unbound. If not, please refer to [[Raspberry Pi/Pihole &amp; Unbound/1. Installation|1. Installation]].
+        File Structure
       
     </span>
   </a>
@@ -1630,10 +1714,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#next-3-create-a-client" class="md-nav__link">
+  <a href="#docker-compose-file" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Next --&gt; [[3. Create a Client]]
+        Docker Compose File
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updating-mkdocs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Updating MKDocs
       
     </span>
   </a>
@@ -1657,80 +1752,48 @@
 
 
 
-  <h1>2. Installation</h1>
+  <h1>1. Installation for MkDocs</h1>
 
-<p>Pivpn is a easy-to-use script we can run, that will allow us to install our chosen VPN Protocols. In this case, we will be installing Wireguard via this script. This Wireguard VPN will allow us to access the services hosted on our Pi, as well as the Proxmox server, from outside of the local network. This will connect us to the network, as if we're a device within the network.</p>
-<h6 id="please-note-this-guide-assumes-you-have-already-setup-pihole-unbound-if-not-please-refer-to-raspberry-pipihole-unbound1-installation1-installation"><strong>PLEASE NOTE:</strong> This guide assumes you have already setup Pihole + Unbound. If not, please refer to [[Raspberry Pi/Pihole &amp; Unbound/1. Installation|1. Installation]].</h6>
-<p>To get started, we can simply run the installation command here:</p>
-<pre><code class="language-bash">curl -L https://install.pivpn.io | bash
+<p>MKDocs is used as a site generator, which I will be using to host my homelab documentation, which can be shared via GitHub Pages under my Repo. With MKDocs, we will be adding the Material Theme alongside this, which is a popular site theme used on MKDoc sites.</p>
+<p>For this deployment, we will be using Docker Compose. This setup will allow use to easily manage our project documentation, and check over it's contents before moving over to GitHub Pages. </p>
+<h3 id="file-structure">File Structure</h3>
+<p>Before we setup and run our Compose file, we first need to setup our folders where MKDocs will be installed. </p>
+<p>For the main location of the MKDocs folder, I will be creating this under <code>/home/user/PiProject-homelab</code>. <code>cd</code> into this, and run <code>sudo mkdir mkdocs</code>.</p>
+<p>Inside of this, create folder <code>mkdocs-data</code>, and within this, <code>docs</code>. For the <code>mkdocs-data</code> folder, we can create our configuration file <code>mkdocs.yml</code>, and enter the following starter config:</p>
+<pre><code class="language-bash">site_name: My Docs
+
+nav:
+  - Home: index.md
+  - About: about.md
+
+theme:
+  name: 'material'
 </code></pre>
-<ul>
-<li>If <code>sudo apt update</code> has not been ran beforehand, this will automatically run, and update any packages available.</li>
-</ul>
-<p>This will initiate a GUI Installation. Follow through the prompts as below:</p>
-<ol>
-<li>
-<p>Press OK</p>
-<p>![[Pasted image 20260819212119.png]]</p>
-</li>
-<li>
-<p>Press OK - We already have static IP address <code>192.164.50.44</code> set.</p>
-<p>![[Pasted image 20260819212155.png]]</p>
-</li>
-<li>
-<p>Select Yes, as this is still a good idea so that it stops private data from leaking if it uses ipv6 in the future.</p>
-<p>![[Pasted image 20260819212508.png]]</p>
-</li>
-<li>
-<p>Press space on <code>eth0</code>, which is the Ethernet connection used for the Pi, and press OK.</p>
-<p>![[Pasted image 20260819212624.png]]</p>
-</li>
-<li>
-<p>Press Yes, as DCHP Reservation is being used for IP <code>192.168.50.44</code>.</p>
-<p>![[Pasted image 20260819212714.png]]</p>
-</li>
-<li>
-<p>Press OK, and select <code>fooney</code> or the main local account you're using for the Pi.</p>
-<p>![[Pasted image 20260819212810.png]]</p>
-<p>![[Pasted image 20260819212828.png]]</p>
-</li>
-<li>
-<p>Select Wireguard using the spacebar, and press OK.</p>
-<p>![[Pasted image 20260819212918.png]]</p>
-</li>
-<li>
-<p>Stick with port <code>51820</code>, and press Ok (We will ensure this is port forwarded on the Router config later on) then Confirm.</p>
-<p>![[Pasted image 20260819213010.png]]</p>
-<p>![[Pasted image 20260819213109.png]]</p>
-</li>
-<li>
-<p>Select <code>PiVPN-is-local-DNS</code> by using the spacebar, and pressing OK. As noted, as we're using unbound, we should select this option.</p>
-<p>![[Pasted image 20260819213414.png]]</p>
-</li>
-<li>
-<p>Choose DNS Entry.</p>
-<p>![[Pasted image 20260819213744.png]]</p>
-</li>
-<li>
-<p>Enter the domain name that we set earlier under [[1. Router DDNS &amp; Port Forwarding]]. This will be <code>fooneyddns.asuscomm.com</code>.</p>
-<p>![[Pasted image 20260819223847.png]]</p>
-<p>![[Pasted image 20260819223927.png]]</p>
-</li>
-<li>
-<p>We will then have confirmation that the server keys will be generated. Press OK.</p>
-<p>![[Pasted image 20260819215258.png]]</p>
-</li>
-<li>
-<p>This will recommend enabling <code>unattended-upgrades</code>. We can confirm, and press Yes, as this is an important feature to enable for automatic security package updates.</p>
-<p>![[Pasted image 20260819215343.png]]</p>
-<p>![[Pasted image 20260819215530.png]]</p>
-</li>
-<li>
-<p>This will then confirm the installation has complete. Press OK, and press Yes to confirm reboot.</p>
-</li>
-</ol>
-<p>We can then move on to creating our client.</p>
-<h5 id="next-3-create-a-client">Next --&gt; [[3. Create a Client]]</h5>
+<h3 id="docker-compose-file">Docker Compose File</h3>
+<p>For the compose file, we will be creating this under the parent <code>mkdocs</code> folder, named <code>mkdocs-compose.yaml</code>. The following configuration will be used:</p>
+<pre><code class="language-bash">services:
+  mkdocs:
+    image: squidfunk/mkdocs-material
+    ports:
+      - &quot;8000:8005&quot; # Uses port 8000, to avoid conflicts with 80
+    dns:
+      - 172.21.0.3 # To ensure Vaultwarden uses Unbound (Docker IP)
+      - 192.168.x.x # Fallback to Pi IP as DNS
+    volumes:
+      - /home/user/PiProject-homelab/mkdocs/mkdocs-data:/docs
+    stdin_open: true
+    tty: true
+</code></pre>
+<p>Inside <code>mkdocs</code>, we can run the compose deployment command:</p>
+<pre><code class="language-bash">sudo docker compose -f mkdocs-compose.yaml up -d
+</code></pre>
+<p>We can test our deployment by connecting to the site, using <code>192.168.x.x:8005</code>. Should be presented with the following:</p>
+<p>![[Pasted image 20260826185955.png]]</p>
+<h3 id="updating-mkdocs">Updating MKDocs</h3>
+<p>As for all docker containers, please ensure that the containers are updated with the latest image!!</p>
+<p>Simply run the command below to pull the latest image, and then stop the container, delete the container, and reinstall it again from the <code>compose.yaml</code> file:</p>
+<pre><code class="language-bash">docker pull squidfunk/mkdocs-material
+</code></pre>
 
 
 
