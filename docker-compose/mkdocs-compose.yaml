@@ -1,0 +1,16 @@
+services:
+  mkdocs:
+    image: squidfunk/mkdocs-material
+    ports:
+      - "${MKDOCS_WEBPORT}:8000"
+    dns:
+      - ${UNBOUND_DOCKER_IP}
+      - ${PI_IP}
+    volumes:
+      - ${MKDOCS_VOLUME}:/docs
+      - ${MKDOCS_SSH_VOLUME}:/root/.ssh:ro
+      - ${SSH_AUTH_SOCK:-/tmp/ssh-2WZQS3pDtpwQ/agent.2007495}:/ssh-agent
+    environment:
+      - SSH_AUTH_SOCK=/ssh-agent
+    stdin_open: true
+    tty: true

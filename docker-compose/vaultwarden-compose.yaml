@@ -4,13 +4,13 @@ services:
     container_name: vaultwarden
     restart: unless-stopped
     dns:
-      - 172.21.0.3
-      - 192.168.x.x
+      - ${UNBOUND_DOCKER_IP}
+      - ${PI_IP}
     environment:
       DOMAIN: ${DOMAIN}  # enter your domain
       SIGNUPS_ALLOWED: "false"                  # disable after creating your first account
       ADMIN_TOKEN: ${ARGON2_HASH}
     volumes:
-      - /home/user/PiProject/vaultwarden:/data
+      - ${VAULTWARDEN_VOLUME}:/data
     ports:
-      - "${PORT}:80/tcp"
+      - "8124:80/tcp"
