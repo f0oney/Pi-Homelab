@@ -9,7 +9,7 @@ services:
     volumes:
       - ${MKDOCS_VOLUME}:/docs
       - ${MKDOCS_SSH_VOLUME}:/root/.ssh:ro
-      - ${SSH_AUTH_SOCK:-/tmp/ssh-2WZQS3pDtpwQ/agent.2007495}:/ssh-agent
+      - $SSH_AUTH_SOCK:/ssh-agent
     environment:
       - SSH_AUTH_SOCK=/ssh-agent
     stdin_open: true
