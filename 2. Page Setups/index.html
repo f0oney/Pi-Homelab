@@ -1732,7 +1732,7 @@
 
   <h1>2. Page Setups</h1>
 
-<p>Coming back to our file we created earlier named <code>mkdocs.yml</code>, under <code>/home/user/PiProject-homelab/mkdocs/mkdocs-data</code>, we can edit this to create our tabs, and add our <code>.md</code> files.</p>
+<p>Coming back to our file we created earlier named <code>mkdocs.yml</code>, under <code>~/pihomelab</code>, we can edit this to create our tabs, and add our <code>.md</code> files.</p>
 <h3 id="current-mkdocsyml-setup">Current mkdocs.yml setup</h3>
 <p>The following I have setup for my MKDocs site:</p>
 <pre><code class="language-bash">nav:
@@ -1783,10 +1783,10 @@ theme:
 <li>The <code>theme:</code> sets the site to dark mode, and asks to use the material theme</li>
 </ul>
 <h3 id="adding-the-md-files">Adding the <code>.md</code> files</h3>
-<p>The <code>.md</code> files are called from the <code>docs</code> folder inside <code>/home/user/PiProject-homelab/mkdocks/mkdocs-data/</code>. We can either create <code>.md</code> files from scratch, or create and transfer them over into the folder. </p>
+<p>The <code>.md</code> files are called from the <code>docs</code> folder inside <code>~/pihomelab/docs</code>. We can either create <code>.md</code> files from scratch, or create and transfer them over into the folder. </p>
 <p>I have created my <code>.md</code> files via an note taking application called Obsidian, and transferred these over. These were copied over using the SSH application MobaXTerm, by simply dragging them over to the file structure tab. </p>
 <p>I ran the command below, so that I had the correct write permissions for copying across:</p>
-<pre><code class="language-bash">sudo chmod -R 777 /home/user/PiProject-homelab/mkdocs/mkdocs-data/docs
+<pre><code class="language-bash">sudo chmod -R 777 ~/pihomelab/docs
 </code></pre>
 
 

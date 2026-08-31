@@ -73,11 +73,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#seperating-shared-data-and-non-shared-data-with-github" class="md-skip">
-          Skip to content
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -433,24 +428,6 @@
       
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    3. Shared Repository Files
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -467,34 +444,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#seperating-shared-data-and-non-shared-data-with-github" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Seperating shared data and non-shared data with Github
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -1674,25 +1623,6 @@
   
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#seperating-shared-data-and-non-shared-data-with-github" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Seperating shared data and non-shared data with Github
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -1710,15 +1640,8 @@
 
   <h1>3. Shared Repository Files</h1>
 
-<p>Inside of <code>/home/user/PiProject</code> (your named repo folder), we want to add in the files we would like to share to our GitHub repository. We need to be careful with how we do this however, as we do not want to share sensitive information such as API keys. </p>
-<hr />
-<h3 id="seperating-shared-data-and-non-shared-data-with-github">Seperating shared data and non-shared data with Github</h3>
-<p>For my setup, I have therefore created an additional folder for what files I would like to keep off Github, using <strong>ProjectPi</strong> as the example:</p>
-<p><code>/home/user/PiProject/</code> 
-- Contains <code>/pihole-unbound</code>, only hosting the unbound files and the <code>compose.yaml</code></p>
-<p><code>/home/user/PiProject-Data/</code>
-- Contains data relating to the services, that I do not want hosted on GitHub. This includes the main pihole configuration files, dnsmasq.d, and other sensitive service data</p>
-<p>The Pihole configuration folder is an example of one that we do not want to share on Github, as this contains site history, queries, client activity, and Gravity.</p>
+<p>Inside of <code>~/pihomelab</code>, this will be our main folder for all our docker services. We need to be careful with how we do this however, as we do not want to share sensitive information such as API keys and config files that should not be on our Github repo.</p>
+<p>It is important therefore to ensure that we are adding any folders/files into the <code>.gitignore</code> folder, so that they are properly hidden.</p>
 
 
 

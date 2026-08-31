@@ -1861,11 +1861,11 @@ echo $SSH_AUTH_SOCK
     ports:
       - &quot;8005:8000&quot;
     dns:
-      - 172.21.0.3 # Points to your Unbound
-      - 192.168.x.x
+      - ${UNBOUND_DOCKER_IP} # Points to your Unbound
+      - ${PI_IP}
     volumes:
-      - /home/user/ProjectPi-homelab:/docs
-      - /home/user/.ssh:/root/.ssh:ro # Points to the keys and knownhosts
+      - ~/pihomelab:/docs
+      - ~/.ssh:/root/.ssh:ro # Points to the keys and knownhosts
       - ${SSH_AUTH_SOCK}:/ssh-agent # Our ssh agent used for the passkey. /tmp/ is 
     environment:
       - SSH_AUTH_SOCK=/ssh-agent
@@ -1887,7 +1887,7 @@ echo $SSH_AUTH_SOCK
 </code></pre>
 <h3 id="add-the-jekyll-bypass-file">Add the Jekyll Bypass File</h3>
 <p>Create an empty <code>.nojekyll</code> file inside your source documentation folder to instruct GitHub Pages to serve the raw HTML files directly without running Jekyll.</p>
-<pre><code class="language-bash">touch /home/user/ProjectPi-homelab/docs/.nojekyll
+<pre><code class="language-bash">touch ~/pihomelabs/.nojekyll
 </code></pre>
 <h3 id="deploy-the-documentation">Deploy the Documentation</h3>
 <p>Run the deployment command using your active socket path to push the built site to your repository's <code>gh-pages</code> branch.</p>

@@ -1758,8 +1758,8 @@
 <p>For this deployment, we will be using Docker Compose. This setup will allow use to easily manage our project documentation, and check over it's contents before moving over to GitHub Pages. </p>
 <h3 id="file-structure">File Structure</h3>
 <p>Before we setup and run our Compose file, we first need to setup our folders where MKDocs will be installed. </p>
-<p>For the main location of the MKDocs folder, I will be creating this under <code>/home/user/PiProject-homelab</code>. <code>cd</code> into this, and run <code>sudo mkdir mkdocs</code>.</p>
-<p>Inside of this, create folder <code>mkdocs-data</code>, and within this, <code>docs</code>. For the <code>mkdocs-data</code> folder, we can create our configuration file <code>mkdocs.yml</code>, and enter the following starter config:</p>
+<p>For the main location of the MKDocs folder, I will be creating this under <code>~/pihomelab</code>.</p>
+<p>For the <code>mkdocs</code> folder, we can create our configuration file <code>mkdocs.yml</code>, and enter the following starter config:</p>
 <pre><code class="language-bash">site_name: My Docs
 
 nav:
@@ -1769,6 +1769,7 @@ nav:
 theme:
   name: 'material'
 </code></pre>
+<p>We can also create sub-folder <code>docs</code>, where all our <code>.md</code> files will be stored.</p>
 <h3 id="docker-compose-file">Docker Compose File</h3>
 <p>For the compose file, we will be creating this under the parent <code>mkdocs</code> folder, named <code>mkdocs-compose.yaml</code>. The following configuration will be used:</p>
 <pre><code class="language-bash">services:
@@ -1777,10 +1778,10 @@ theme:
     ports:
       - &quot;8000:8005&quot; # Uses port 8000, to avoid conflicts with 80
     dns:
-      - 172.21.0.3 # To ensure Vaultwarden uses Unbound (Docker IP)
-      - 192.168.x.x # Fallback to Pi IP as DNS
+      - ${UNBOUND_DOCKER_IP} # To ensure Vaultwarden uses Unbound (Docker IP)
+      - ${PI_IP} # Fallback to Pi IP as DNS
     volumes:
-      - /home/user/PiProject-homelab/mkdocs/mkdocs-data:/docs
+      - ~/pihomelab:/docs
     stdin_open: true
     tty: true
 </code></pre>

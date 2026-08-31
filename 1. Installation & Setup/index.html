@@ -1924,7 +1924,7 @@
 
 <p>Vaultwarden is used to locally host your own Bitwarden Password Manager. This will be installed via a Docker Compose installation.</p>
 <h2 id="docker-compose-creation">Docker Compose Creation</h2>
-<p>Firstly, we can create out .yaml compose file under directory <code>/home/home/PiProject-homelab/vaultwarden</code>, as this can be a file we're happy to share to GitHub. The following is to be entered on the file:</p>
+<p>Firstly, we can create out <code>.yaml</code> compose file under directory <code>~/pihomelab/docker-compose</code> The following is to be entered on the file:</p>
 <pre><code class="language-bash">sudo nano vaultwarden-compose.yaml
 </code></pre>
 <pre><code class="language-bash">services:
@@ -1933,14 +1933,14 @@
     container_name: vaultwarden
     restart: unless-stopped
     dns:
-      - 172.21.0.3 # To ensure Vaultwarden uses Unbound (Docker IP)
-      - 192.168.x.x # Fallback to Pi IP as DNS
+      - ${UNBOUND_DOCKER_IP} # To ensure Vaultwarden uses Unbound (Docker IP)
+      - ${PI_IP} # Fallback to Pi IP as DNS
     environment:
       DOMAIN: ${DOMAIN}  # enter your domain
       SIGNUPS_ALLOWED: &quot;false&quot;                  # disable after creating your first account
       ADMIN_TOKEN: ${ARGON2_HASH}
     volumes:
-      - /home/user/PiProject-homelab-data/vaultwarden:/data
+      - ~/pihomelab/vaultwarden:/data
     ports:
       - &quot;${PORT}:80/tcp&quot;
 

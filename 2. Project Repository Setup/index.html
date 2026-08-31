@@ -1828,15 +1828,16 @@
 <p>Once created, we can then move over to the Raspberry Pi, to create our project repo folder, where we will link this across to the created GitHub Repo.</p>
 <h3 id="repo-folder-structure-on-serverdevice">Repo folder structure on Server/Device</h3>
 <p>On your device, under <code>/home/user/</code>, we can create a new folder named after your project. For this example, we can user <strong>PiProject</strong>, via the following command:</p>
-<pre><code class="language-bash">sudo mkdir PiProject
-cd /home/home/PiProject
+<pre><code class="language-bash">sudo mkdir pihomelab
+cd /home/home/pihomelab
 </code></pre>
 <p>Inside of this folder, we can then run the git command below, to create the repo files:</p>
 <pre><code class="language-bash">sudo git init -b main
 </code></pre>
 <p>Once the git files have been created, we can start structuring this repo folder, by adding in the separate folders for each of your services. For me, I have vaultwarden and pihole-unbound that I can add in as sub-folders:</p>
-<pre><code class="language-bash">sudo mkdir -p /home/user/PiProject/vaultwarden
-sudo mkdir -p /home/user/PiProject/pihole-unbound
+<pre><code class="language-bash">sudo mkdir -p ~/pihomelab/vaultwarden
+sudo mkdir -p ~/pihomelab/pihole
+sudo mkdir -p ~/pihomelab/unbound
 </code></pre>
 <h3 id="gitignore">.gitignore</h3>
 <p>We can then create a <code>.gitignore</code> file, which allows us to specify files we do not want to have show up under our GitHub repository. These can include <code>.env</code> files, or <code>.db</code> files to name a couple.</p>
@@ -1848,9 +1849,10 @@ sudo mkdir -p /home/user/PiProject/pihole-unbound
 <code>*.db</code>
 <code>*.sqlite</code>
 <code>*.sqlite-journal</code></p>
+<p>You can add folders etc, which I have additionally done, to hide the sensitive data and configs.</p>
 <h3 id="remote-origin">Remote Origin</h3>
 <p>Next step is to add the remote origin, that links to our private repository created in GitHub, via the following:</p>
-<pre><code class="language-bash">sudo git remote add origin https://github.com/user/PiProject
+<pre><code class="language-bash">sudo git remote add origin git@github.com:username/reponame.git
 </code></pre>
 <h3 id="stage-and-commits">Stage and Commits</h3>
 <p>Once satisfied, we then want to stage the current structure and updates done to this project folder:</p>

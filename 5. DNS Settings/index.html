@@ -1735,7 +1735,7 @@
 <p>For domains using Nginx, to redirect to specified IPs + Ports, we need to add each local domain entry to point to the Raspberry Pi IP, where Nginx is hosted.</p>
 <p>This is so that once the request is received to connect onto the local domain, it is forwarded straight to Nginx, that then deals with the reverse proxy side.</p>
 <h3 id="how-it-works">How it works</h3>
-<p>For example, Proxmox is currently hosted on a different server using IP example 192.168.0.56, and port 8005. The reverse proxy is setup on Nginx, hosted on <code>192.168.0.44</code>, with code blocks setup in file <code>/etc/nginx/sites-available/your.sites</code> (refer to the Proxmox note under Nginx RP Blocks folder). The IP that proxmox.user.local points to will therefore be <code>192.168.0.44</code>, as we want to forward it to Nginx to deal with:</p>
+<p>For example, Proxmox is currently hosted on a different server using IP example 192.168.0.56, and port 8005. The reverse proxy is setup on Nginx, hosted on <code>192.168.0.123</code>, with code blocks setup in file <code>/etc/nginx/sites-available/your.sites</code> (refer to the Proxmox note under Nginx RP Blocks folder). The IP that proxmox.user.local points to will therefore be <code>192.168.0.123</code>, as we want to forward it to Nginx to deal with:</p>
 <p>![[Pasted image 20260730224916.png]]</p>
 <h3 id="simple-local-domain-setup-via-pihole">Simple Local Domain Setup via Pihole</h3>
 <p>Other domains that do not need to be managed by Nginx, can point directly to their designated IPs. To find the configuration for this, and add new domains, we can follow through these simple steps:</p>

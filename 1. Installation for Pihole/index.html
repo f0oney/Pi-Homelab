@@ -712,6 +712,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="File Structures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gitignore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .gitignore
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -723,9 +740,10 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="Docker Compose File">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#env-file" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -733,6 +751,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1733,6 +1756,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="File Structures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gitignore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .gitignore
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1744,9 +1784,10 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="Docker Compose File">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#env-file" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1754,6 +1795,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1801,9 +1847,14 @@
 <p>To install Pihole, we can use Docker Compose. This will allow us to use a <code>.yaml</code> file, which also contains the Unbound DNS container, that can work alongside Pihole.</p>
 <hr />
 <h3 id="file-structures">File Structures</h3>
-<p>As for the location of the file, we will store this via <code>/home/user/raspberrypi-homelab/pihole-unbound</code>, as this is the publicly available GitHub repository, and a file we would like to share.</p>
-<p>We specifically want the Pihole and Unbound data files to be stored under <code>PiProject-homelab-data</code>. This can be specified in the <code>piholeunbound-compose.yaml</code> file itself.</p>
-<p>We can then copy any files we want to share on our GitHub page to <code>/home/user/PiProject-homelab</code>. These files were created under the GitHub branch of my guides, from [2. Project Repository Setup], and an explanation of both folders, and their purposes, can be found here: [3. Shared Repository Files].</p>
+<p>As for the location of the <code>yaml</code> file, we will store this via <code>~/pihomelab/docker-compose</code>, which will be where we are storing the docker compose files for all Docker services.</p>
+<p>The data files and configs will be stored under <code>~/pihomelab/pihole</code> (for Pihole) and <code>~/pihomelab/unbound</code> for unbound. We also have the <code>dnsmasq.d</code> sub folder, which will be in the same location. This can be specified in the <code>piholeunbound-compose.yaml</code> file itself.</p>
+<h5 id="gitignore">.gitignore</h5>
+<p>Any data and config files we don't want to share with the GitHub repo, will be added to the <code>.gitignore</code> file. This will include:</p>
+<ul>
+<li>/pihole folder</li>
+<li>/dnsmasq.d</li>
+</ul>
 <h3 id="docker-compose-file">Docker Compose File</h3>
 <p>The following config is to be entered within the <code>.yaml</code> file:</p>
 <pre><code class="language-bash">services:
@@ -1813,16 +1864,16 @@
     ports:
       - &quot;53:53/tcp&quot; # The DNS port
       - &quot;53:53/udp&quot;
-      - &quot;591:80/tcp&quot; # 80 is the HTTP port it will listen on, whilst 591 will be the port it directs the traffic too. This is for the Web Interface, and 591 is the port I chose for this.
-      - &quot;${PORT}:443/tcp&quot; # The HTTPS ports
+      - &quot;${PIHOLE_WEBPORT}:80/tcp&quot; # 80 is the HTTP port it will listen on, whilst PIHOLE_WEBPORT will be the port it directs the traffic too. This is for the Web Interface, and PIHOLE_WEBPORT is the port I chose for this.
+      - &quot;8920:443/tcp&quot; # The HTTPS ports
     environment:
       TZ: &quot;YOUR_TIMEZONE&quot;
       FTLCONF_webserver_api_password: ${PIHOLE_PASSWORD}  # This points to the .env file, which contains the password it pulls. This is so this .yaml file can be safely shared on GitHub, without exposing my password.
       DNSMASQ_LISTENING: &quot;all&quot;
       PIHOLE_DNS_1: &quot;unbound#53&quot;  # Point to unbound container
     volumes:
-      - /home/user/PiProject-homelab-data/pihole:/etc/pihole # Pihole files stored in host raspberrypi-homelab-data, and container will mirror this in /etc/
-      - /home/user/PiProject-homelab-data/dnsmasq.d:/etc/dnsmasq.d
+      - ~/pihomelab/pihole:/etc/pihole # Pihole files stored in host pihomelab, and container will mirror this in /etc/
+      - ~/pihomelab/dnsmasq.d:/etc/dnsmasq.d
     restart: unless-stopped
     networks:
       dns_network:
@@ -1839,7 +1890,7 @@
     container_name: unbound2026050
     image: klutchell/unbound:latest
     volumes:
-      - /home/user/PiProject-homelab-data/unbound:/etc/unbound/custom.conf.d # Unbound files stored in host raspberrypi-homelab-data, and container will mirror this in /etc/
+      - ~/pihomelab/unbound:/etc/unbound/custom.conf.d # Unbound files stored in host pihomelab, and container will mirror this in /etc/
     restart: unless-stopped
     networks:
       dns_network:
@@ -1850,11 +1901,11 @@ networks:
 <ul>
 <li>Check comments with # for short descriptions</li>
 </ul>
-<h3 id="env-file">.env File</h3>
+<h5 id="env-file">.env File</h5>
 <p><strong>Note</strong>: For the password in this configuration, it is finding and using a created variable. We can just set a plain text password, but we can use this instead if sharing this config on GitHub, so it is hidden. To do this, create a new file in the same location named <code>.env</code>, and enter the following in it's file:</p>
 <pre><code class="language-bash">PIHOLE_PASSWORD=INSERT_HERE
 </code></pre>
-<p><code>INSERT_HERE</code> can be replaced with the chosen password. <code>.env</code> is used, as GitHub is setup to ignore and not pull any <code>.env</code> files, as specified in it's <code>.gitignore</code> file, under <code>/home/fooney/raspberrypi-homelab</code>.</p>
+<p><code>INSERT_HERE</code> can be replaced with the chosen password. <code>.env</code> is used, as GitHub is setup to ignore and not pull any <code>.env</code> files, as specified in it's <code>.gitignore</code> file, under <code>~/pihomelab</code>.</p>
 <h3 id="deploying-the-compose-file">Deploying the compose file</h3>
 <p>Once this file(s) have been created, and config lines used above, we can then initiate it's installation via the following command:</p>
 <pre><code class="language-bash">sudo docker compose -f piholeunbound-compose.yaml up -d

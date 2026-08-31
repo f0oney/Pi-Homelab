@@ -1754,9 +1754,9 @@
 
   <h1>2. Admin Portal</h1>
 
-<p>The admin portal for Vaultwarden can be access via domain vault.fooney.xyz/admin. When loading the webpage, it will request for the Authentication key:</p>
+<p>The admin portal for Vaultwarden can be access via domain vault.user.local/admin. When loading the webpage, it will request for the Authentication key:</p>
 <p>![[Pasted image 20260818215308.png]]</p>
-<p>This is related to the Argon2 PHC string generated, which is shown in [[1. Installation &amp; Setup]]. For the authentication key, enter the admin password setup when running the temporary docker container.</p>
+<p>This is related to the Argon2 PHC string generated, which is shown in [[1. Installation \&amp; Setup]]. For the authentication key, enter the admin password setup when running the temporary docker container.</p>
 <h2 id="general-setting-checks">General Setting Checks</h2>
 <p>Under the Settings tab, we can check if new sign-ups are enabled under the General settings:</p>
 <p>![[Pasted image 20260818220146.png]]</p>
@@ -1769,10 +1769,12 @@
 <h2 id="diagnostics-tab">Diagnostics Tab</h2>
 <p>The diagnostics tab will display the following:</p>
 <p>![[Pasted image 20260818230212.png]]</p>
-<p>Things to note:
-1.  The <strong>Server Installed</strong> field will display if and when the image is out of date, and needs updating
-2.  If <strong>Internet Access</strong> has an error, and cannot reach the Github page, then the DNS is not set correctly under the compose file
-3. If the <strong>Websocket</strong> field has error'd, this will mean the Nginx proxy server block is configured incorrectly</p>
+<p>Things to note:</p>
+<ol>
+<li>The <strong>Server Installed</strong> field will display if and when the image is out of date, and needs updating</li>
+<li>If <strong>Internet Access</strong> has an error, and cannot reach the Github page, then the DNS is not set correctly under the compose file</li>
+<li>If the <strong>Websocket</strong> field has error'd, this will mean the Nginx proxy server block is configured incorrectly</li>
+</ol>
 <p>These as of current, are running as expected with no errors.</p>
 
 

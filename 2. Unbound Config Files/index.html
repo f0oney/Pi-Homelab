@@ -1820,16 +1820,15 @@
 
   <h1>2. Unbound Config Files</h1>
 
-<p>Once the containers are installed, we can then proceed on creating the Unbound files. These aren't necessary, due to the container already pre-generating these in the background, but we can create these manually under <code>/home/user/PiProject-homelab-data/unbound</code> if we want to edit and create custom configs. </p>
-<p>These will then mirror over to <code>/etc/unbound/custom.conf.d</code>, as directed on the directory setting of Unbound on the .yaml file - [Raspberry Pi/Pihole &amp; Unbound/1. Installation|1. Installation].</p>
-<p>Then, any files mirror'd to <code>custom.conf.d</code>, Unbound will pick up, and use over it's default configs.</p>
-<p>Firstly, lets ensure the <code>/etc/unbound/custom.conf.d</code> folder is created. If not already, cd to /etc/, and enter the following commands:</p>
+<p>Once the containers are installed, we can then proceed on creating the Unbound files. These aren't necessary, due to the container already pre-generating these in the background, but we can create these manually under <code>~/pihomelab/unbound</code> if we want to edit and create custom configs. </p>
+<p>These will then mirror over to <code>/etc/unbound/custom.conf.d</code>, as directed on the directory setting of Unbound on the <code>.yaml</code> file - [[Raspberry Pi/Pihole &amp; Unbound/1. Installation|1. Installation]]. Then, any files mirror'd to <code>custom.conf.d</code>, Unbound will pick up, and use over it's default configs.</p>
+<p>Firstly, lets ensure the <code>/etc/unbound/custom.conf.d</code> folder exists on the system. If not already, cd to <code>/etc/</code>, and enter the following commands:</p>
 <pre><code class="language-bash">cd /etc/
 mkdir unbound
 cd unbound/
 mkdir custom.conf.d
 </code></pre>
-<p>We will then need to cd over to <code>/home/user/ProjectPi-homelab-data/unbound</code>, and can create the following files:</p>
+<p>We will then need to cd over to <code>~/pihomelab/unbound</code>, and can create the following files...</p>
 <h3 id="unboundconf">unbound.conf</h3>
 <pre><code class="language-bash">sudo nano unbound.conf
 </code></pre>
@@ -1950,7 +1949,7 @@ F.ROOT-SERVERS.NET.      3600000      AAAA  2001:500:2f::f
 </code></pre>
 <p>It is recommended to update the <code>root.hints</code> file once every 6 months, as domains may update by InterNic. We can simply use the second command above to re-generate the file and it's contents.</p>
 <h3 id="dnsmaqd">dnsmaq.d</h3>
-<p>We can also configure and create our custom configuration file for dnsmasq. This is located in <code>/home/user/ProjectPi-homelab-data/dnsmaq.d</code>, which we can cd into, and run command <code>sudo nano 02-lan-access.conf</code>, entering the following config:</p>
+<p>We can also configure and create our custom configuration file for <code>dnsmasq</code>. This is located in <code>~/pihomelab/dnsmaq.d</code>, which we can cd into, and run command <code>sudo nano 02-lan-access.conf</code>, entering the following config:</p>
 <pre><code class="language-bash"># Allow all interfaces
 listen-address=0.0.0.0
 bind-interfaces
