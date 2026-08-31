@@ -4,8 +4,8 @@
 *.db
 *.sqlite
 *.sqlite-journal
+
 site/
 pihole/
-unbound/
 dnsmasq.d/
 vaultwarden/
