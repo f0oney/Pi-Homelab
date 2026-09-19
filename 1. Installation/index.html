@@ -9,7 +9,7 @@
       
       
       
-        <link rel="prev" href="../Vaultwarden%20Server%20Block/">
+        <link rel="prev" href="../MkDocs%20Server%20Block/">
       
       
         <link rel="next" href="../2.%20Configuration%20Files%20%26%20HTTP/">
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#how-it-works" class="md-skip">
+        <a href="#docker-compose-file" class="md-skip">
           Skip to content
         </a>
       
@@ -995,6 +995,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MkDocs%20Server%20Block/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MkDocs Server Block
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1066,10 +1094,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#docker-compose-file" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Docker Compose File
       
     </span>
   </a>
@@ -1077,10 +1105,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#package-install-command" class="md-nav__link">
+  <a href="#deploying-the-compose-file" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Package Install Command
+        Deploying the compose file
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#for-other-docker-containers-going-forward" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For other Docker Containers going forward
       
     </span>
   </a>
@@ -1692,10 +1731,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#docker-compose-file" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Docker Compose File
       
     </span>
   </a>
@@ -1703,10 +1742,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#package-install-command" class="md-nav__link">
+  <a href="#deploying-the-compose-file" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Package Install Command
+        Deploying the compose file
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#for-other-docker-containers-going-forward" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For other Docker Containers going forward
       
     </span>
   </a>
@@ -1733,17 +1783,66 @@
   <h1>1. Installation</h1>
 
 <p>Nginx is a reverse proxy, which can be used to redirect IP Addresses with different ports, to different local domains setup in Pihole.</p>
+<p>In this case, we have our Raspberry Pi IP <code>192.168.50.44</code>. In it's current form, each service is hosted in it's own Docker Container. As with my previous configuration of Nginx, this was on bare metal, outside of a Docker Container, but with this setup, it meant that we had to open up random ports for each service. </p>
+<p>For example, as the default port for Pihole is 80, as well as Vaultwarden, we needed to allocate them both different ports via Nginx. This can be quite insecure. As this is all local, the ports and IPs are not open to public view, so it does not present a major threat, but it is still good practise to steer away from this, and rather group all docker containers, including Nginx, into one Docker Network.</p>
 <hr />
-<h3 id="how-it-works">How it works</h3>
-<p>In this case, we have our Raspberry Pi IP <code>192.168.0.x</code>. As we have multiple services running, with different web interfaces, we won't be able to setup multiple local domains normally, as they all use the same IP Address. All the services running on docker containers however use different ports. This is where Nginx comes in.</p>
-<p>The following can be setup:
-    Pihole for example can use port 7000, whereas Vaultwarden uses port 6000. We can get Nginx to assign local domain <code>pihole.user.local</code> to <code>192.168.0.x:7000</code>, and local domain <code>vault.user.local</code> to <code>192.168.1.x:6000</code>. </p>
-<p>This will use HTTP, but we can also configure it to use HTTPS, using self-signed certificates. These will all be setup in a configuration file, which I will guide through in this Nginx section.</p>
-<h3 id="package-install-command">Package Install Command</h3>
-<p>First, we will need to install Nginx on our Pi. To do this, we can run the following command:</p>
-<pre><code class="language-bash">sudo apt install nginx -y
+<p>This means that Nginx will point to the container's name, and uses the services default port to push the relevant traffic across, dependent on what local domain is being entered. Example below of this being done on the Nginx Server Block File:</p>
+<pre><code class="language-bash">https://pihole:80
 </code></pre>
-<p>In this case, I have decided to not install nginx in a docker container, so that it is easier for setting up, and easier to communicate with the services.</p>
+<p>To proceed with this setup, we can first create a new docker network. Lets call this 'dns_network':</p>
+<pre><code class="language-bash">docker network create -d bridge dns_network
+</code></pre>
+<h5 id="docker-compose-file">Docker Compose File</h5>
+<p>Once created, we will then need to incorporate this into our Docker Compose file for Nginx. The following file is created, with lines added (This file is placed under ~/raspberrypi-homelab/docker-compose):</p>
+<pre><code class="language-bash">services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx_proxy
+    restart: unless-stopped
+    ports:
+      - &quot;80:80&quot;
+      - &quot;443:443&quot;
+    volumes:
+      - ${NGINX_VOLUME}:/etc/nginx/conf.d:ro
+      - ${CERTS_VOLUME}:/etc/openssl/certificates:ro
+      - ${KEYS_VOLUME}:/etc/openssl/keys:ro
+    networks:
+      dns_network:
+
+networks:
+  dns_network:
+    external: true
+    driver: bridge
+</code></pre>
+<p>A breakdown of the lines:</p>
+<p><code>networks:</code> - This is the block outside of services. This calls the dns_network, which is specified underneath. 
+    <code>external: true</code> - This specifies that the network is already created and available outside of the docker compose file. If not included, the docker compose file will attempt to create the network fresh.
+    <code>driver: bridge</code> - The network mode bridge allows all docker containers that are connected to this network, to create a 'bridge' of communication between them all. </p>
+<p><code>networks:</code> - This is inside of the services branch. This simply allows for the service to join and use this network.</p>
+<p><code>ports:</code> - These ports will need to be opened, which are usually just the default ports 80 and 443, which our other docker containers use by default for traffic. If we don't open these ports on Nginx, then no traffic will flow through to the other containers, being completely blocked off.</p>
+<p><code>volumes:</code> - The Certs and Keys volumes will contain our OpenSSL certs/keys, that the Nginx Docker Container will need to grab and read for use in our server block file. The /conf.d is our main configuration folder.</p>
+<h5 id="deploying-the-compose-file">Deploying the compose file</h5>
+<pre><code class="language-bash">sudo docker compose -f nginx-compose.yaml up -d
+</code></pre>
+<p>Once the above has been ran, we can confirm it has successfully deployed by checking the active containers:</p>
+<pre><code class="language-bash">Docker ps
+</code></pre>
+<p>We can also check it's logs to check for any errors:</p>
+<pre><code class="language-bash">Docker logs nginx_proxy
+</code></pre>
+<h5 id="for-other-docker-containers-going-forward">For other Docker Containers going forward</h5>
+<p>Now that the Nginx docker container is up and running, connecting to Docker Network <code>dns_network</code>, we will need to ensure that all other docker containers going forward includes this network in their compose files.</p>
+<p>They will simply need the following added:</p>
+<pre><code class="language-bash">services:    
+    networks:
+      dns_network:
+
+networks:
+  dns_network:
+    external: true
+    driver: bridge
+</code></pre>
+<p>This will be briefly explained on the installation of the other Docker Containers and any adjustments needed.</p>
 
 
 
@@ -1793,7 +1892,7 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.select", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>

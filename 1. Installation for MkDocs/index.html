@@ -587,6 +587,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#nginx-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nginx Setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#updating-mkdocs" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1058,6 +1069,34 @@
     
   
     Vaultwarden Server Block
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MkDocs%20Server%20Block/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MkDocs Server Block
   
 
     
@@ -1725,6 +1764,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#nginx-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nginx Setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#updating-mkdocs" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1775,20 +1825,29 @@ theme:
 <pre><code class="language-bash">services:
   mkdocs:
     image: squidfunk/mkdocs-material
-    ports:
-      - &quot;8000:8005&quot; # Uses port 8000, to avoid conflicts with 80
-    dns:
-      - ${UNBOUND_DOCKER_IP} # To ensure Vaultwarden uses Unbound (Docker IP)
-      - ${PI_IP} # Fallback to Pi IP as DNS
+    container_name: mkdocs
+    networks:
+      dns_network:
     volumes:
-      - ~/pihomelab:/docs
+      - ${MKDOCS_VOLUME}:/docs
+      - ${MKDOCS_SSH_VOLUME}:/root/.ssh:ro
+      - $SSH_AUTH_SOCK:/ssh-agent
+    environment:
+      - SSH_AUTH_SOCK=/ssh-agent
     stdin_open: true
     tty: true
+
+networks:
+  dns_network:
+    external: true
+    driver: bridge
 </code></pre>
 <p>Inside <code>mkdocs</code>, we can run the compose deployment command:</p>
 <pre><code class="language-bash">sudo docker compose -f mkdocs-compose.yaml up -d
 </code></pre>
-<p>We can test our deployment by connecting to the site, using <code>192.168.x.x:8005</code>. Should be presented with the following:</p>
+<h3 id="nginx-setup">Nginx Setup</h3>
+<p>Ensure its nginx server block is setup before proceeding, so that we can connect on using it's given local domain.</p>
+<p>We can test our deployment by connecting to the site, using <code>example.com</code>. Should be presented with the following:</p>
 <p>![[Pasted image 20260826185955.png]]</p>
 <h3 id="updating-mkdocs">Updating MKDocs</h3>
 <p>As for all docker containers, please ensure that the containers are updated with the latest image!!</p>
@@ -1844,7 +1903,7 @@ theme:
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.select", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>

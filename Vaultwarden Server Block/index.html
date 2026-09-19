@@ -12,7 +12,7 @@
         <link rel="prev" href="../Proxmox%20Server%20Block/">
       
       
-        <link rel="next" href="../1.%20Installation/">
+        <link rel="next" href="../MkDocs%20Server%20Block/">
       
       
         
@@ -1000,6 +1000,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MkDocs%20Server%20Block/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MkDocs Server Block
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1645,10 +1673,9 @@
 <p>Example server block setup for Vaultwarden:</p>
 <pre><code class="language-bash">upstream vaultwarden-default {
   zone vaultwarden-default 64k;
-  server localserver:${PORT};
+  server vaultwarden:80;
   keepalive 2;
 }
-
 
 map $http_upgrade $connection_upgrade {
     default upgrade;
@@ -1659,15 +1686,15 @@ server {
     listen 80; # http port
     listen [::]:80; # used for ipv6
 
-    server_name vault.user.local www.vault.user.local;
-    return 301 https://vault.user.local;
+    server_name example.com example.com;
+    return 301 https://example.com;
 }
 
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
     http2 on;
-    server_name vault.user.local www.vault.user.local;
+    server_name example.com www.example.com;
 
     ssl_certificate /etc/openssl/certificates/user.crt;
     ssl_certificate_key /etc/openssl/keys/user.key;
@@ -1689,6 +1716,7 @@ server {
    }
 }
 </code></pre>
+<p><code>vaultwarden-default</code> - Upstream block that contains the proxy_pass address. As with all other docker containers, this will call the docker name, followed by it's default port. This will be <code>vaultwarden:80</code>.</p>
 
 
 
@@ -1738,7 +1766,7 @@ server {
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.select", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>

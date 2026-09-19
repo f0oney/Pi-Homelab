@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#configuring-the-server-blocks" class="md-skip">
+        <a href="#server-block-example" class="md-skip">
           Skip to content
         </a>
       
@@ -995,6 +995,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MkDocs%20Server%20Block/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MkDocs Server Block
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1094,43 +1122,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#configuring-the-server-blocks" class="md-nav__link">
+  <a href="#server-block-example" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuring the server blocks
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#activating-the-server-block" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Activating the server block
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#disabling-the-landing-page" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Disabling the landing page
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#testing-its-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Testing it's configuration
+        Server Block Example
       
     </span>
   </a>
@@ -1714,43 +1709,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#configuring-the-server-blocks" class="md-nav__link">
+  <a href="#server-block-example" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuring the server blocks
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#activating-the-server-block" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Activating the server block
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#disabling-the-landing-page" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Disabling the landing page
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#testing-its-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Testing it's configuration
+        Server Block Example
       
     </span>
   </a>
@@ -1776,23 +1738,21 @@
 
   <h1>2. Configuration Files & HTTP</h1>
 
-<p>To start setting up our reverse proxy, we will need to create a new configuration file, that will host our setup. This is found under <code>/etc/nginx/sites-available</code>.</p>
-<p>Instead of editing the default config file, we instead want to create a new server block file where we can add on our related proxy settings.</p>
-<hr />
-<h3 id="configuring-the-server-blocks">Configuring the server blocks</h3>
-<p>First, create a new file, preferably named the domain (e.g. user.local) in <code>/etc/nginx/sites-available</code></p>
-<pre><code class="language-bash">cd /etc/nginx/sites-available
-sudo touch your.sites
+<p>To begin with the configuration of Nginx, we will need to understand it's file structure. From our docker compose file, volume <code>/etc/nginx/conf.d</code> will be pointing at our home user folder. This for me is <code>~/pihomelab/nginx</code>. The docker container has already created and setup the relevant config files, including sites-available folders and the nginx configuration file, which we won't see, but is contained in <code>/etc/nginx</code> of the docker container.</p>
+<p>Any additional config files, mainly being our proxy server block file, will be added under our desired home folder as stated on the volume, and which our docker container will be actively checking and pulling.</p>
+<p>For this setup, we will only need to worry about creating a .conf file, which will contain our server block proxy configuration. CD into your chosen area, and create the .conf file, choosing a name that suits it best for you. My file will be named <code>serverblock.conf</code>.</p>
+<pre><code class="language-bash">cd ~/pihomelab/nginx
+sudo touch serverblock.conf
 </code></pre>
-<p>We can then edit the file:</p>
-<pre><code class="language-bash">sudo nano your.sites
+<pre><code class="language-bash">sudo nano serverblock.conf
 </code></pre>
-<p>And paste the following template, and replace parameters accoringly:</p>
-<pre><code class="language-bash">server {
+<h5 id="server-block-example">Server Block Example</h5>
+<p>For a basic HTTP setup which will be used for our Pihole service, we can use the following template:</p>
+<pre><code>server {
     listen 80;
     server_name example.com www.example.com http://www.example.com; #Replace with your domain/IP           
     location / {
-        proxy_pass http://localhost:3000; #Backend server URL/port           
+        proxy_pass http://pihole:80; #Backend server URL/port           
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;           
         proxy_set_header X-Forwarded-For 
@@ -1801,21 +1761,12 @@ sudo touch your.sites
     }   
 }
 </code></pre>
-<p>Press CTRL + S to save the file.</p>
-<h3 id="activating-the-server-block">Activating the server block</h3>
-<p>To activate the server block, we want to create a symlink from <code>sites-available</code>, where the server block file sits, to <code>sites-enabled</code>. This is because <code>sites-available</code> isnt our active files for the proxy, but anything in <code>sites-enabled</code> is.</p>
-<pre><code class="language-bash">sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/
+<p>On the line <code>proxy_pass</code>, we will only need to call 'pihole' as the docker container, as opposed to our IP Address. Port 80 is then added, as this is the default port Pihole uses.</p>
+<p>With the lines added to the file, we can save this and test the configuration for any syntax errors. As we will need to run the command inside of the docker container, <code>docker exec</code> is added:</p>
+<pre><code>docker exec nginx_proxy nginx -t
 </code></pre>
-<h3 id="disabling-the-landing-page">Disabling the landing page</h3>
-<p>Once created, we can also go ahead and disable the default nginx landing page, if not needed (optional).</p>
-<pre><code class="language-bash">sudo unlink /etc/nginx/sites-enabled/default
-</code></pre>
-<h3 id="testing-its-configuration">Testing it's configuration</h3>
-<p>We can then test the nginx configuration for any syntax errors:</p>
-<pre><code class="language-bash">sudo nginx -t
-</code></pre>
-<p>If all good, we can then reload nginx to apply the changes:</p>
-<pre><code class="language-bash">sudo systemctl reload nginx
+<p>If all is good, we can then reload nginx to apply the changes:</p>
+<pre><code>docker exec nginx_proxy nginx -s reload
 </code></pre>
 
 
@@ -1866,7 +1817,7 @@ sudo touch your.sites
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.select", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>

@@ -993,6 +993,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MkDocs%20Server%20Block/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MkDocs Server Block
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1933,18 +1961,23 @@
     container_name: vaultwarden
     restart: unless-stopped
     dns:
-      - ${UNBOUND_DOCKER_IP} # To ensure Vaultwarden uses Unbound (Docker IP)
-      - ${PI_IP} # Fallback to Pi IP as DNS
+      - 172.21.0.3 # To ensure Vaultwarden uses Unbound (Docker IP)
+      - 192.168.50.44 # Fallback to Pi IP as DNS
+    networks:
+      dns_network:
     environment:
       DOMAIN: ${DOMAIN}  # enter your domain
       SIGNUPS_ALLOWED: &quot;false&quot;                  # disable after creating your first account
       ADMIN_TOKEN: ${ARGON2_HASH}
     volumes:
-      - ~/pihomelab/vaultwarden:/data
-    ports:
-      - &quot;${PORT}:80/tcp&quot;
+      - ${VAULTWARDEN_VOLUME}:/data
 
+networks:
+  dns_network:
+    external: true
+    driver: bridge
 </code></pre>
+<p><code>networks:</code> - Connected to our docker network, allowing for DNS communication, and working alongside Nginx.</p>
 <h3 id="admin-token">Admin Token</h3>
 <p>For 'ADMIN_TOKEN', as we're hosting this file on Github, I have created a <code>.env</code> file to keep this on, with <code>${ARGON2_HASH}</code> being called from it. </p>
 <p>Under the same directory, I have ran <code>sudo nano .env</code>, and added the following inside:</p>
@@ -2041,7 +2074,7 @@ DOMAIN=vault.user.local
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.select", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>

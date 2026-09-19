@@ -1116,6 +1116,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MkDocs%20Server%20Block/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MkDocs Server Block
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1859,21 +1887,19 @@
 <p>The following config is to be entered within the <code>.yaml</code> file:</p>
 <pre><code class="language-bash">services:
   pihole:
-    container_name: pihole # Can be named anything
+    container_name: pihole
     image: pihole/pihole:latest
     ports:
-      - &quot;53:53/tcp&quot; # The DNS port
+      - &quot;53:53/tcp&quot;
       - &quot;53:53/udp&quot;
-      - &quot;${PIHOLE_WEBPORT}:80/tcp&quot; # 80 is the HTTP port it will listen on, whilst PIHOLE_WEBPORT will be the port it directs the traffic too. This is for the Web Interface, and PIHOLE_WEBPORT is the port I chose for this.
-      - &quot;8920:443/tcp&quot; # The HTTPS ports
     environment:
-      TZ: &quot;YOUR_TIMEZONE&quot;
-      FTLCONF_webserver_api_password: ${PIHOLE_PASSWORD}  # This points to the .env file, which contains the password it pulls. This is so this .yaml file can be safely shared on GitHub, without exposing my password.
+      TZ: ${TZ}  # Replace with your timezone
+      FTLCONF_webserver_api_password: ${PIHOLE_PASSWORD}  # Change this!
       DNSMASQ_LISTENING: &quot;all&quot;
       PIHOLE_DNS_1: &quot;unbound#53&quot;  # Point to unbound container
     volumes:
-      - ~/pihomelab/pihole:/etc/pihole # Pihole files stored in host pihomelab, and container will mirror this in /etc/
-      - ~/pihomelab/dnsmasq.d:/etc/dnsmasq.d
+      - ${PIHOLE_VOLUME}:/etc/pihole
+      - ${DNSMASQ_VOLUME}:/etc/dnsmasq.d
     restart: unless-stopped
     networks:
       dns_network:
@@ -1887,20 +1913,20 @@
     depends_on:
       - unbound
   unbound:
-    container_name: unbound2026050
+    container_name: unbound
     image: klutchell/unbound:latest
     volumes:
-      - ~/pihomelab/unbound:/etc/unbound/custom.conf.d # Unbound files stored in host pihomelab, and container will mirror this in /etc/
+      - ${UNBOUND_VOLUME}:/etc/unbound/custom.conf.d
     restart: unless-stopped
     networks:
       dns_network:
 networks:
   dns_network:
+    external: true
     driver: bridge
 </code></pre>
-<ul>
-<li>Check comments with # for short descriptions</li>
-</ul>
+<p><code>ports:</code> - Even though this is within our Docker Network, we still need to specify port 53 in this compose file, as this is the default port used for DNS. Without this, Pihole simply won't function as port 53 is not defined.</p>
+<p><code>networks:</code> - Our dns_network is specified for connection.</p>
 <h5 id="env-file">.env File</h5>
 <p><strong>Note</strong>: For the password in this configuration, it is finding and using a created variable. We can just set a plain text password, but we can use this instead if sharing this config on GitHub, so it is hidden. To do this, create a new file in the same location named <code>.env</code>, and enter the following in it's file:</p>
 <pre><code class="language-bash">PIHOLE_PASSWORD=INSERT_HERE
@@ -1967,7 +1993,7 @@ docker pull klutchell/unbound:latest
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.select", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>

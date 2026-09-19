@@ -73,11 +73,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#server-block-amendments" class="md-skip">
-          Skip to content
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -995,6 +990,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MkDocs%20Server%20Block/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MkDocs Server Block
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1101,24 +1124,6 @@
       
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    4. HTTPS Configuration
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1135,56 +1140,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#server-block-amendments" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Server Block Amendments
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#https-redirect" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        HTTPS Redirect
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#checking-for-syntax-errors" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Checking for syntax errors
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -1696,47 +1651,6 @@
   
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#server-block-amendments" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Server Block Amendments
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#https-redirect" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        HTTPS Redirect
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#checking-for-syntax-errors" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Checking for syntax errors
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -1754,21 +1668,20 @@
 
   <h1>4. HTTPS Configuration</h1>
 
-<p>With the self-signed certificates created, we can use these to create our HTTPS connections to the local domains. For this example, we will use our Pihole server block we setup previously under [2. Configuration Files &amp; HTTP], to add on HTTPS capability.</p>
+<p>With the self-signed certificates created, we can use these to create our HTTPS connections to the local domains. For this example, we will use our Pihole server block we setup previously, to add on HTTPS capability.</p>
 <hr />
-<h3 id="server-block-amendments">Server Block Amendments</h3>
-<p>Navigate to the server block created earlier via <code>sudo nano /etc/nginx/sites-available/your.sites</code>, and add the additional lines:</p>
+<p>Navigate to the server block created earlier via <code>sudo nano ~/raspberrypi-homelab/nginx/serverblock.conf</code>, and add the additional lines:</p>
 <pre><code class="language-bash">server {
     listen 443 ssl; # https port
-    listen [::]:80; # used for ipv6
+    listen [::]:443; # used for ipv6
     server_name example.com  www.example.com;
 
-    ssl_certificate /etc/openssl/certificates/user.crt; # Locations of the certs
-    ssl_certificate_key /etc/openssl/keys/user.key; # Location of the keys
+    ssl_certificate /etc/openssl/certificates/user.crt; # locations of the certs
+    ssl_certificate_key /etc/openssl/keys/user.key; # ocation of the keys
 
    location / {
 
-       proxy_pass http://localhost:${PORT};  # Backend server URL/port
+       proxy_pass http://pihole:80;  # Backend server URL/port
        proxy_set_header Host $host;
        proxy_set_header X-Real-IP $remote_addr;
        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -1776,12 +1689,9 @@
    }
 }
 </code></pre>
-<ul>
-<li><code>ssl_certificate</code> and <code>ssl_certificate_key</code> lines are added, so that the certificate crt and key are obtained and used in it's connection.</li>
-<li><code>listen 443 ssl</code> is used in replacement of port 80, as this is the https port.</li>
-<li><code>listen [::]:80</code> is used for ipv6 connections.</li>
-</ul>
-<h3 id="https-redirect">HTTPS Redirect</h3>
+<p><code>ssl_certificate</code> and <code>ssl_certificate_key</code> lines are added, so that the certificate crt and key are obtained and used in it's connection.</p>
+<p><code>listen 443 ssl</code> is used in replacement of port 80, as this is the https port.</p>
+<p><code>listen [::]:80</code> is used for ipv6 connections.</p>
 <p>To redirect http requests to https, we can add the following server block on top:</p>
 <pre><code class="language-bash">server {
     listen 80; # http port
@@ -1791,10 +1701,9 @@
     return 301 https://example.com/admin;
 }
 </code></pre>
-<h3 id="checking-for-syntax-errors">Checking for syntax errors</h3>
 <p>With the Pihole server block now complete, we can check for syntax errors, before applying the changes:</p>
-<pre><code class="language-bash">sudo nginx -t
-sudo systemctl reload nginx
+<pre><code class="language-bash">docker compose nginx_proxy nginx -t
+docker compose nginx -s reload
 </code></pre>
 <p>For other server blocks setup for the Raspberry Pi services, please direct to the Server Blocks Breakdown section.</p>
 
@@ -1846,7 +1755,7 @@ sudo systemctl reload nginx
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.select", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
