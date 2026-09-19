@@ -1,0 +1,19 @@
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx_proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ${NGINX_VOLUME}:/etc/nginx/conf.d:ro
+      - ${CERTS_VOLUME}:/etc/openssl/certificates:ro
+      - ${KEYS_VOLUME}:/etc/openssl/keys:ro
+    networks:
+      dns_network:
+
+networks:
+  dns_network:
+    external: true
+    driver: bridge

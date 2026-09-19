@@ -4,13 +4,18 @@ services:
     container_name: vaultwarden
     restart: unless-stopped
     dns:
-      - ${UNBOUND_DOCKER_IP}
-      - ${PI_IP}
+      - 172.21.0.3 # To ensure Vaultwarden uses Unbound (Docker IP)
+      - 192.168.50.44 # Fallback to Pi IP as DNS
+    networks:
+      dns_network:
     environment:
       DOMAIN: ${DOMAIN}  # enter your domain
       SIGNUPS_ALLOWED: "false"                  # disable after creating your first account
       ADMIN_TOKEN: ${ARGON2_HASH}
     volumes:
       - ${VAULTWARDEN_VOLUME}:/data
-    ports:
-      - "8124:80/tcp"
+
+networks:
+  dns_network:
+    external: true
+    driver: bridge

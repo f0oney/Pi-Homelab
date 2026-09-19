@@ -5,8 +5,6 @@ services:
     ports:
       - "53:53/tcp"
       - "53:53/udp"
-      - "${PIHOLE_WEBPORT}:80/tcp"
-      - "8920:443/tcp"
     environment:
       TZ: ${TZ}  # Replace with your timezone
       FTLCONF_webserver_api_password: ${PIHOLE_PASSWORD}  # Change this!
@@ -37,4 +35,5 @@ services:
       dns_network:
 networks:
   dns_network:
+    external: true
     driver: bridge

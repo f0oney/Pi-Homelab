@@ -3,10 +3,9 @@ Example server block setup for Vaultwarden:
 ```bash
 upstream vaultwarden-default {
   zone vaultwarden-default 64k;
-  server localserver:${PORT};
+  server vaultwarden:80;
   keepalive 2;
 }
-
 
 map $http_upgrade $connection_upgrade {
     default upgrade;
@@ -17,15 +16,15 @@ server {
     listen 80; # http port
     listen [::]:80; # used for ipv6
 
-    server_name vault.user.local www.vault.user.local;
-    return 301 https://vault.user.local;
+    server_name example.com example.com;
+    return 301 https://example.com;
 }
 
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
     http2 on;
-    server_name vault.user.local www.vault.user.local;
+    server_name example.com www.example.com;
 
     ssl_certificate /etc/openssl/certificates/user.crt;
     ssl_certificate_key /etc/openssl/keys/user.key;
@@ -47,3 +46,5 @@ server {
    }
 }
 ```
+
+`vaultwarden-default` - Upstream block that contains the proxy_pass address. As with all other docker containers, this will call the docker name, followed by it's default port. This will be `vaultwarden:80`.

@@ -44,6 +44,9 @@ nav:
            - 2. Schedule using Crontab.md
 theme:
   name: 'material'
+  features:
+    - content.code.select
+    - content.code.copy
   palette:
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
