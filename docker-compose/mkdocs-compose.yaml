@@ -2,6 +2,9 @@ services:
   mkdocs:
     image: squidfunk/mkdocs-material
     container_name: mkdocs
+    dns:
+      - ${UNBOUND_DOCKER_IP}
+      - ${PI_IP}
     networks:
       dns_network:
     volumes:

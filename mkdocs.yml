@@ -25,6 +25,7 @@ nav:
                  - Portainer Server Block.md
                  - Proxmox Server Block.md
                  - Vaultwarden Server Block.md
+                 - MkDocs Server Block.md
            - 1. Installation.md
            - 2. Configuration Files & HTTP.md
            - 3. OpenSSL Self-Signed Certificates.md

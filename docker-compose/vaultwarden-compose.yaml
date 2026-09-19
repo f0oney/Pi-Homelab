@@ -4,8 +4,8 @@ services:
     container_name: vaultwarden
     restart: unless-stopped
     dns:
-      - 172.21.0.3 # To ensure Vaultwarden uses Unbound (Docker IP)
-      - 192.168.50.44 # Fallback to Pi IP as DNS
+      - ${UNBOUND_DOCKER_IP} # To ensure Vaultwarden uses Unbound (Docker IP)
+      - ${PI_IP} # Fallback to Pi IP as DNS
     networks:
       dns_network:
     environment:
