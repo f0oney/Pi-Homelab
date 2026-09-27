@@ -40,9 +40,12 @@ nav:
            - 2. Admin Portal.md
       - Portainer Agent:
            - 1. Portainer Agent Installation.md
-      - Backups:
-           - 1. RClone Setup.md
-           - 2. Schedule using Crontab.md
+      - Scripts:
+           - Backups:
+                 - 1. RClone Setup.md
+                 - 2. Schedule using Crontab.md
+           - Docker-Compose Image Updates:
+                 - Script setup.md
 theme:
   name: 'material'
   features:
