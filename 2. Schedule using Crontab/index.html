@@ -12,6 +12,8 @@
         <link rel="prev" href="../1.%20RClone%20Setup/">
       
       
+        <link rel="next" href="../Script%20setup/">
+      
       
         
       
@@ -1530,7 +1532,7 @@
   <span class="md-ellipsis">
     
   
-    Backups
+    Scripts
   
 
     
@@ -1543,6 +1545,55 @@
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Scripts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_8_1" id="__nav_3_8_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backups
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_8_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_8_1">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1624,6 +1675,97 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_8_2" id="__nav_3_8_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker-Compose Image Updates
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_8_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Docker-Compose Image Updates
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Script%20setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Script setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1671,7 +1813,7 @@
 </code></pre>
 <p>Press option 1</p>
 <p>In the file, we've added the following line:</p>
-<pre><code class="language-bash">0 3 * * 6 /home/user/homelab/backupscr.sh
+<pre><code class="language-bash">0 3 * * 6 /home/user/pihomelab/backupscr.sh
 </code></pre>
 <p>These parameters state it will run every week, on a Saturday. We can use the following website that will help show which parameters we will need to use:</p>
 <p><a href="https://crontab.guru/#0_3_*_*_6">https://crontab.guru/#0_3_<em>_</em>_6</a></p>
