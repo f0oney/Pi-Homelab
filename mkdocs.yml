@@ -40,6 +40,7 @@ nav:
       - Vaultwarden:
            - 1. Installation & Setup.md
            - 2. Admin Portal.md
+           - 3. Backups.md
       - Portainer Agent:
            - 1. Portainer Agent Installation.md
       - Scripts:

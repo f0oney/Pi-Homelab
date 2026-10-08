@@ -15,7 +15,50 @@ services:
     volumes:
       - ${VAULTWARDEN_VOLUME}:/data
 
+  backup:
+      image: ttionya/vaultwarden-backup:latest
+      container_name: vaultwarden-backup
+      restart: unless-stopped
+      dns:
+        - ${UNBOUND_DOCKER_IP} # To ensure Vaultwarden uses Unbound (Docker IP)
+        - ${PI_IP} # Fallback to Pi IP as DNS
+      networks:
+        dns_network:
+      environment:
+        # Must match the remote created with rclone config
+        RCLONE_REMOTE_NAME: "BitwardenBackup"
+
+        # Directory inside the remote storage
+        RCLONE_REMOTE_DIR: "/Vaultwarden Backups/"
+
+        # Run at 01:00 every day
+        CRON: "0 0 1 * *"
+
+        # Create one encrypted archive
+        ZIP_ENABLE: "TRUE"
+        ZIP_TYPE: "7z"
+        ZIP_PASSWORD: ${ZIP_PASSWORD}
+
+        # Keep backups from the last 30 days
+        BACKUP_KEEP_DAYS: "30"
+
+        # Optional: use your local timezone
+        TIMEZONE: ${TZ}
+
+        # Optional: identify this server in logs and notifications
+        DISPLAY_NAME: "vaultwarden"
+
+      volumes:
+        - ${VAULTWARDEN_VOLUME}:/bitwarden/data/
+        - vaultwarden-rclone-data:/config/
+
+volumes:
+  vaultwarden-rclone-data:
+    external: true
+    name: vaultwarden-rclone-data
+
 networks:
   dns_network:
     external: true
     driver: bridge
+
