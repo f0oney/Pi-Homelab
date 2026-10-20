@@ -1511,7 +1511,7 @@
   <span class="md-ellipsis">
     
   
-    Portainer Agent
+    Portainer
   
 
     
@@ -1527,7 +1527,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Portainer Agent
+    Portainer
   
 
           </label>
@@ -1540,14 +1540,42 @@
   
   
     <li class="md-nav__item">
-      <a href="../1.%20Portainer%20Agent%20Installation/" class="md-nav__link">
+      <a href="../1.%20Portainer%20SWARM%20Setup/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    1. Portainer Agent Installation
+    1. Portainer SWARM Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.%20Initial%20Web%20Interface%20Setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Initial Web Interface Setup
   
 
     
@@ -1910,7 +1938,7 @@
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
 </span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">   </span>location<span class="w"> </span>/<span class="w"> </span><span class="o">{</span>
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">       </span>proxy_pass<span class="w"> </span>https://localserver:<span class="si">${</span><span class="nv">PORT</span><span class="si">}</span><span class="p">;</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">       </span>proxy_pass<span class="w"> </span>https://dockercontainername:9443<span class="p">;</span>
 </span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">       </span>proxy_http_version<span class="w"> </span><span class="m">1</span>.1<span class="p">;</span>
 </span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">       </span>proxy_set_header<span class="w"> </span>Upgrade<span class="w"> </span><span class="nv">$http_upgrade</span><span class="p">;</span>
 </span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">       </span>proxy_set_header<span class="w"> </span>Connection<span class="w"> </span><span class="s2">&quot;upgrade&quot;</span><span class="p">;</span>

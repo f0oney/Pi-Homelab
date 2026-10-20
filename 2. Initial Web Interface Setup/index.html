@@ -9,7 +9,7 @@
       
       
       
-        <link rel="prev" href="../3.%20Backups/">
+        <link rel="prev" href="../1.%20Portainer%20SWARM%20Setup/">
       
       
         <link rel="next" href="../1.%20RClone%20Setup/">
@@ -23,7 +23,7 @@
     
     
       
-        <title>1. Portainer Agent Installation - My Docs</title>
+        <title>2. Initial Web Interface Setup - My Docs</title>
       
     
     
@@ -73,11 +73,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#setup-via-portainer-server" class="md-skip">
-          Skip to content
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -110,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              1. Portainer Agent Installation
+              2. Initial Web Interface Setup
             
           </span>
         </div>
@@ -1506,7 +1501,7 @@
   <span class="md-ellipsis">
     
   
-    Portainer Agent
+    Portainer
   
 
     
@@ -1522,11 +1517,39 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Portainer Agent
+    Portainer
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.%20Portainer%20SWARM%20Setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Portainer SWARM Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -1542,24 +1565,6 @@
       
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    1. Portainer Agent Installation
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1567,7 +1572,7 @@
   <span class="md-ellipsis">
     
   
-    1. Portainer Agent Installation
+    2. Initial Web Interface Setup
   
 
     
@@ -1576,45 +1581,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#setup-via-portainer-server" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Setup via Portainer Server
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#setup-via-pi-device" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Setup via Pi Device
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -1931,36 +1897,6 @@
   
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#setup-via-portainer-server" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Setup via Portainer Server
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#setup-via-pi-device" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Setup via Pi Device
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -1979,48 +1915,15 @@
   
 
 
-  <h1>1. Portainer Agent Installation</h1>
+  <h1>2. Initial Web Interface Setup</h1>
 
-<p>The Portainer Agent will allow us to have our Raspberry Pi Docker Containers manageable via the Portainer web portal, hosted on the <strong>Debian VM</strong> on our <strong>Proxmox Server.</strong></p>
-<p>To set up our agent, we first need to make sure the Portainer Server is setup, which you can refer to the guide [Proxmox/Debian VM (Docker Server)/Portainer/1. Installation]. Once this is confirmed all up and running on it's host server, we can begin. </p>
-<hr />
-<h3 id="setup-via-portainer-server">Setup via Portainer Server</h3>
-<p>Firstly, login to the Portainer Web Portal via your chosen IP/local domain. </p>
-<p>Once in, navigate through to <strong>Environment-related</strong> &gt; <strong>Environments</strong> &gt; Click <strong>Add Environment</strong>. We can then walk through the following steps:</p>
-<ol>
-<li>Select <strong>Docker Standalone</strong>, and press <strong>Start Wizard</strong></li>
-<li>Ensure <strong>Edge Agent Standalone</strong> is selected</li>
-<li>Enter the following in the fields:<ol>
-<li>Name: Pi-Agent</li>
-<li>Portainer API server URL: localserver domain [Auto-Fills]</li>
-</ol>
-</li>
-<li>Once all entered, press <strong>Create</strong></li>
-<li>This will populate new fields, as well as our Join token, that we will need to use to connect the Agent. </li>
-<li>Enter <strong>EDGE=1</strong> in the <strong>Environment Variables</strong> field and copy the generated command:</li>
-</ol>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span>-v<span class="w"> </span>/var/run/docker.sock:/var/run/docker.sock<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span>-v<span class="w"> </span>/var/lib/docker/volumes:/var/lib/docker/volumes<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span>-v<span class="w"> </span>/:/host<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span>-v<span class="w"> </span>portainer_agent_data:/data<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span>--restart<span class="w"> </span>always<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span>-e<span class="w"> </span><span class="nv">EDGE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span>-e<span class="w"> </span><span class="nv">EDGE_ID</span><span class="o">=</span>58634afe-3c32-4113-8322-6ed18ef29c60<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span>-e<span class="w"> </span><span class="nv">EDGE_KEY</span><span class="o">=</span>aHR0cHM6Ly8xOTIuMTY4LjUwLjE3MTo5NDQzfDE5Mi4xNjguNTAuMTcxOjgwMDB8ekJlVGt3dW1qaVBHb2FnUVY0WFUwd1ZCU2M1UjEzNUw5T0tZTWphSmUwTT18Ng<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">  </span>-e<span class="w"> </span><span class="nv">EDGE_INSECURE_POLL</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">  </span>-e<span class="w"> </span><span class="nv">EDGE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">  </span>--name<span class="w"> </span>portainer_edge_agent<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">  </span>portainer/agent:2.39.5<span class="w">  </span>
+<p>Once Portainer is up and running, we can load up the webpage using the domain setup on Nginx. This will bring up the setup page.</p>
+<p>On the setup page, enter your username, and a password to set again the account. For the setup token, you can obtain this by running the docker logs command for the portainer container:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>docker<span class="w"> </span>logs<span class="w"> </span>portainer
 </span></code></pre></div>
-<h3 id="setup-via-pi-device">Setup via Pi Device</h3>
-<p>SSH onto the Raspberry Pi, and paste the command in to run. The Edge Key will already contain the generated key on Portainer, so no amendments are needed.</p>
-<p>Confirm the command has ran, and the docker container for the agent has installed successfully via <code>docker ps</code>. This should show a new container on the Pi named portainer/agent.</p>
-<p>Once the docker container is running, go back onto the Portainer Portal, and click on the Home tab. We can then confirm whether this is showing as running, and pulling our containers correctly:</p>
-<p>![[Pasted image 20260811192707.png]]</p>
-<p><strong>Pi-Agent &gt; Containers</strong></p>
-<p>![[Pasted image 20260811192743.png]]</p>
-<p>As we can see above, the Raspberry Pi Docker Containers now show under the Pi-Agent environment, seeing our PiHole, Unbound, VaultWarden, MKDocs and the Agent itself.</p>
+<p>In the logs, it will show the setup token, which you can copy and paste into and accept.</p>
+<p>The primary environment should already be setup. You can click on this under the 'Environments' tab. To confirm Swarm is running correctly, and that your node appears in the list, click on the 'Swarm' tab on the navigation menu under the environment, and choose 'Details'</p>
+<p>Here, you should see two nodes, one being your primary manager, and the other being the one you joined the swarm with.</p>
 
 
 

@@ -1593,7 +1593,7 @@
   <span class="md-ellipsis">
     
   
-    Portainer Agent
+    Portainer
   
 
     
@@ -1609,7 +1609,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Portainer Agent
+    Portainer
   
 
           </label>
@@ -1622,14 +1622,42 @@
   
   
     <li class="md-nav__item">
-      <a href="../1.%20Portainer%20Agent%20Installation/" class="md-nav__link">
+      <a href="../1.%20Portainer%20SWARM%20Setup/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    1. Portainer Agent Installation
+    1. Portainer SWARM Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.%20Initial%20Web%20Interface%20Setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Initial Web Interface Setup
   
 
     
@@ -2048,7 +2076,7 @@
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span>image:<span class="w"> </span>squidfunk/mkdocs-material
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span>container_name:<span class="w"> </span>mkdocs
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span>networks:
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">      </span>dns_network:
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">      </span>swarm_network:
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span>volumes:
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">      </span>-<span class="w"> </span><span class="si">${</span><span class="nv">MKDOCS_VOLUME</span><span class="si">}</span>:/docs
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">      </span>-<span class="w"> </span><span class="si">${</span><span class="nv">MKDOCS_SSH_VOLUME</span><span class="si">}</span>:/root/.ssh:ro
@@ -2059,9 +2087,9 @@
 </span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span>tty:<span class="w"> </span><span class="nb">true</span>
 </span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
 </span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>networks:
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">  </span>dns_network:
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">  </span>swarm_network:
 </span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">    </span>external:<span class="w"> </span><span class="nb">true</span>
-</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">    </span>driver:<span class="w"> </span>bridge
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">    </span>driver:<span class="w"> </span>overlay
 </span></code></pre></div>
 <p>Inside <code>mkdocs</code>, we can run the compose deployment command:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>mkdocs-compose.yaml<span class="w"> </span>up<span class="w"> </span>-d

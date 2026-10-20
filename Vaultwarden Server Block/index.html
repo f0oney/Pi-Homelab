@@ -1511,7 +1511,7 @@
   <span class="md-ellipsis">
     
   
-    Portainer Agent
+    Portainer
   
 
     
@@ -1527,7 +1527,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Portainer Agent
+    Portainer
   
 
           </label>
@@ -1540,14 +1540,42 @@
   
   
     <li class="md-nav__item">
-      <a href="../1.%20Portainer%20Agent%20Installation/" class="md-nav__link">
+      <a href="../1.%20Portainer%20SWARM%20Setup/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    1. Portainer Agent Installation
+    1. Portainer SWARM Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.%20Initial%20Web%20Interface%20Setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Initial Web Interface Setup
   
 
     
@@ -1894,7 +1922,7 @@
 <p>Example server block setup for Vaultwarden:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>upstream<span class="w"> </span>vaultwarden-default<span class="w"> </span><span class="o">{</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span>zone<span class="w"> </span>vaultwarden-default<span class="w"> </span>64k<span class="p">;</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span>server<span class="w"> </span>vaultwarden:80<span class="p">;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span>server<span class="w"> </span>dockercontainername:80<span class="p">;</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span>keepalive<span class="w"> </span><span class="m">2</span><span class="p">;</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="o">}</span>
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>

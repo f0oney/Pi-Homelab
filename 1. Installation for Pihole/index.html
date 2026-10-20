@@ -1627,7 +1627,7 @@
   <span class="md-ellipsis">
     
   
-    Portainer Agent
+    Portainer
   
 
     
@@ -1643,7 +1643,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Portainer Agent
+    Portainer
   
 
           </label>
@@ -1656,14 +1656,42 @@
   
   
     <li class="md-nav__item">
-      <a href="../1.%20Portainer%20Agent%20Installation/" class="md-nav__link">
+      <a href="../1.%20Portainer%20SWARM%20Setup/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    1. Portainer Agent Installation
+    1. Portainer SWARM Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.%20Initial%20Web%20Interface%20Setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Initial Web Interface Setup
   
 
     
@@ -2123,7 +2151,7 @@
 </span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">      </span>-<span class="w"> </span><span class="si">${</span><span class="nv">DNSMASQ_VOLUME</span><span class="si">}</span>:/etc/dnsmasq.d
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span>restart:<span class="w"> </span>unless-stopped
 </span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span>networks:
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">      </span>dns_network:
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">      </span>swarm_network:
 </span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">    </span>cap_add:
 </span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">      </span>-<span class="w"> </span>NET_ADMIN
 </span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">      </span>-<span class="w"> </span>NET_RAW
@@ -2140,14 +2168,14 @@
 </span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">      </span>-<span class="w"> </span><span class="si">${</span><span class="nv">UNBOUND_VOLUME</span><span class="si">}</span>:/etc/unbound/custom.conf.d
 </span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">    </span>restart:<span class="w"> </span>unless-stopped
 </span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">    </span>networks:
-</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">      </span>dns_network:
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">      </span>swarm_network:
 </span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>networks:
-</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="w">  </span>dns_network:
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="w">  </span>swarm_network:
 </span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="w">    </span>external:<span class="w"> </span><span class="nb">true</span>
-</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="w">    </span>driver:<span class="w"> </span>bridge
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="w">    </span>driver:<span class="w"> </span>overlay
 </span></code></pre></div>
 <p><code>ports:</code> - Even though this is within our Docker Network, we still need to specify port 53 in this compose file, as this is the default port used for DNS. Without this, Pihole simply won't function as port 53 is not defined.</p>
-<p><code>networks:</code> - Our dns_network is specified for connection.</p>
+<p><code>networks:</code> - Our swarm_network is specified for connection.</p>
 <h5 id="env-file">.env File</h5>
 <p><strong>Note</strong>: For the password in this configuration, it is finding and using a created variable. We can just set a plain text password, but we can use this instead if sharing this config on GitHub, so it is hidden. To do this, create a new file in the same location named <code>.env</code>, and enter the following in it's file:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nv">PIHOLE_PASSWORD</span><span class="o">=</span>INSERT_HERE

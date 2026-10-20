@@ -12,7 +12,7 @@
         <link rel="prev" href="../2.%20Admin%20Portal/">
       
       
-        <link rel="next" href="../1.%20Portainer%20Agent%20Installation/">
+        <link rel="next" href="../1.%20Portainer%20SWARM%20Setup/">
       
       
         
@@ -1660,7 +1660,7 @@
   <span class="md-ellipsis">
     
   
-    Portainer Agent
+    Portainer
   
 
     
@@ -1676,7 +1676,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Portainer Agent
+    Portainer
   
 
           </label>
@@ -1689,14 +1689,42 @@
   
   
     <li class="md-nav__item">
-      <a href="../1.%20Portainer%20Agent%20Installation/" class="md-nav__link">
+      <a href="../1.%20Portainer%20SWARM%20Setup/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    1. Portainer Agent Installation
+    1. Portainer SWARM Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.%20Initial%20Web%20Interface%20Setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Initial Web Interface Setup
   
 
     
@@ -2173,7 +2201,7 @@
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">      </span>-<span class="w"> </span><span class="si">${</span><span class="nv">UNBOUND_DOCKER_IP</span><span class="si">}</span><span class="w"> </span><span class="c1"># To ensure Vaultwarden uses Unbound (Docker IP)</span>
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">      </span>-<span class="w"> </span><span class="si">${</span><span class="nv">PI_IP</span><span class="si">}</span><span class="w"> </span><span class="c1"># Fallback to Pi IP as DNS</span>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span>networks:
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">      </span>dns_network:
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">      </span>swarm_network:
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span>environment:
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">      </span>DOMAIN:<span class="w"> </span><span class="si">${</span><span class="nv">DOMAIN</span><span class="si">}</span><span class="w">  </span><span class="c1"># enter your domain</span>
 </span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">      </span>SIGNUPS_ALLOWED:<span class="w"> </span><span class="s2">&quot;false&quot;</span><span class="w">                  </span><span class="c1"># disable after creating your first account</span>
@@ -2189,7 +2217,7 @@
 </span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">        </span>-<span class="w"> </span><span class="si">${</span><span class="nv">UNBOUND_DOCKER_IP</span><span class="si">}</span><span class="w"> </span><span class="c1"># To ensure Vaultwarden uses Unbound (Docker IP)</span>
 </span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">        </span>-<span class="w"> </span><span class="si">${</span><span class="nv">PI_IP</span><span class="si">}</span><span class="w"> </span><span class="c1"># Fallback to Pi IP as DNS</span>
 </span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">      </span>networks:
-</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">        </span>dns_network:
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">        </span>swarm_network:
 </span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">      </span>environment:
 </span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">        </span><span class="c1"># Must match the remote created with rclone config</span>
 </span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">        </span>RCLONE_REMOTE_NAME:<span class="w"> </span><span class="s2">&quot;BitwardenBackup&quot;</span>
@@ -2224,9 +2252,9 @@
 </span><span id="__span-0-58"><a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a><span class="w">    </span>name:<span class="w"> </span>vaultwarden-rclone-data
 </span><span id="__span-0-59"><a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a>
 </span><span id="__span-0-60"><a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a>networks:
-</span><span id="__span-0-61"><a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a><span class="w">  </span>dns_network:
+</span><span id="__span-0-61"><a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a><span class="w">  </span>swarm_network:
 </span><span id="__span-0-62"><a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a><span class="w">    </span>external:<span class="w"> </span><span class="nb">true</span>
-</span><span id="__span-0-63"><a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a><span class="w">    </span>driver:<span class="w"> </span>bridge
+</span><span id="__span-0-63"><a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a><span class="w">    </span>driver:<span class="w"> </span>overlay
 </span></code></pre></div>
 <h3 id="environment-variables">Environment Variables</h3>
 <p>The following variables have been used, and described as so:</p>
