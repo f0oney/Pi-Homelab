@@ -3,7 +3,7 @@ Example server block setup for Vaultwarden:
 ```bash
 upstream vaultwarden-default {
   zone vaultwarden-default 64k;
-  server vaultwarden:80;
+  server dockercontainername:80;
   keepalive 2;
 }
 

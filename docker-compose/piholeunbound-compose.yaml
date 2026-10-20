@@ -15,7 +15,7 @@ services:
       - ${DNSMASQ_VOLUME}:/etc/dnsmasq.d
     restart: unless-stopped
     networks:
-      dns_network:
+      swarm_network:
     cap_add:
       - NET_ADMIN
       - NET_RAW
@@ -32,8 +32,9 @@ services:
       - ${UNBOUND_VOLUME}:/etc/unbound/custom.conf.d
     restart: unless-stopped
     networks:
-      dns_network:
+      swarm_network:
 networks:
-  dns_network:
+  swarm_network:
     external: true
-    driver: bridge
+    attachable: true
+    driver: overlay

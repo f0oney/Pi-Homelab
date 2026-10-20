@@ -11,9 +11,10 @@ services:
       - ${CERTS_VOLUME}:/etc/openssl/certificates:ro
       - ${KEYS_VOLUME}:/etc/openssl/keys:ro
     networks:
-      dns_network:
+      swarm_network:
 
 networks:
-  dns_network:
+  swarm_network:
     external: true
-    driver: bridge
+    attachable: true
+    driver: overlay

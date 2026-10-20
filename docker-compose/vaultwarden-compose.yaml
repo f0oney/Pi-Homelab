@@ -7,7 +7,7 @@ services:
       - ${UNBOUND_DOCKER_IP} # To ensure Vaultwarden uses Unbound (Docker IP)
       - ${PI_IP} # Fallback to Pi IP as DNS
     networks:
-      dns_network:
+      swarm_network:
     environment:
       DOMAIN: ${DOMAIN}  # enter your domain
       SIGNUPS_ALLOWED: "false"                  # disable after creating your first account
@@ -23,7 +23,7 @@ services:
         - ${UNBOUND_DOCKER_IP} # To ensure Vaultwarden uses Unbound (Docker IP)
         - ${PI_IP} # Fallback to Pi IP as DNS
       networks:
-        dns_network:
+        swarm_network:
       environment:
         # Must match the remote created with rclone config
         RCLONE_REMOTE_NAME: "BitwardenBackup"
@@ -58,7 +58,8 @@ volumes:
     name: vaultwarden-rclone-data
 
 networks:
-  dns_network:
+  swarm_network:
     external: true
-    driver: bridge
+    attachable: true
+    driver: overlay
 

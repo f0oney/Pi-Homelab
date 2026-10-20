@@ -19,7 +19,7 @@ server {
 
    location / {
 
-       proxy_pass https://localserver:${PORT};
+       proxy_pass https://dockercontainername:9443;
        proxy_http_version 1.1;
        proxy_set_header Upgrade $http_upgrade;
        proxy_set_header Connection "upgrade";

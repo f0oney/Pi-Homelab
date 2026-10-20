@@ -6,7 +6,7 @@ services:
       - ${UNBOUND_DOCKER_IP}
       - ${PI_IP}
     networks:
-      dns_network:
+      swarm_network:
     volumes:
       - ${MKDOCS_VOLUME}:/docs
       - ${MKDOCS_SSH_VOLUME}:/root/.ssh:ro
@@ -17,8 +17,9 @@ services:
     tty: true
 
 networks:
-  dns_network:
+  swarm_network:
     external: true
-    driver: bridge
+    attachable: true
+    driver: overlay
 
 

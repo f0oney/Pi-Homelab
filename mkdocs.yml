@@ -41,8 +41,9 @@ nav:
            - 1. Installation & Setup.md
            - 2. Admin Portal.md
            - 3. Backups.md
-      - Portainer Agent:
-           - 1. Portainer Agent Installation.md
+      - Portainer:
+           - 1. Portainer SWARM Setup.md
+           - 2. Initial Web Interface Setup.md
       - Scripts:
            - Backups:
                  - 1. RClone Setup.md
