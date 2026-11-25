@@ -8,6 +8,7 @@ This project hosts publicly shareable configs and Docker Compose files that have
 * 🔧 Nginx - Reverse Proxy for Local Domains
 * 🔧 PiVPN - Using Wireguard to securely connect to my local network
 * 🔧 RClone - Data Backups to Cloud Services
+* 🔧 Portainer - Docker Management
 
 As you can see, these config files are arranged in their seperate folders.
 

@@ -9,10 +9,10 @@ services:
       swarm_network:
     volumes:
       - ${MKDOCS_VOLUME}:/docs
-      - ${MKDOCS_SSH_VOLUME}:/root/.ssh:ro
-      - $SSH_AUTH_SOCK:/ssh-agent
+      - ${HOME}/.ssh/known_hosts:/root/.ssh/known_hosts:ro
+      - ${HOME}/.ssh-agent:/ssh-agent-dir
     environment:
-      - SSH_AUTH_SOCK=/ssh-agent
+      - SSH_AUTH_SOCK=/ssh-agent-dir/agent.sock
     stdin_open: true
     tty: true
 
