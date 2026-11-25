@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#file-structure" class="md-skip">
+        <a href="#prerequisites" class="md-skip">
           Skip to content
         </a>
       
@@ -589,10 +589,32 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#file-structure" class="md-nav__link">
     <span class="md-ellipsis">
       
         File Structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssh-agent-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSH Agent Setup
       
     </span>
   </a>
@@ -626,6 +648,17 @@
     <span class="md-ellipsis">
       
         Updating MKDocs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
       
     </span>
   </a>
@@ -1184,7 +1217,7 @@
   <span class="md-ellipsis">
     
   
-    2. Configuration Files & HTTP
+    2. Configuration Files &amp; HTTP
   
 
     
@@ -1988,10 +2021,32 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#file-structure" class="md-nav__link">
     <span class="md-ellipsis">
       
         File Structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssh-agent-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSH Agent Setup
       
     </span>
   </a>
@@ -2031,6 +2086,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2054,55 +2120,131 @@
   <h1>1. Installation for MkDocs</h1>
 
 <p>MKDocs is used as a site generator, which I will be using to host my homelab documentation, which can be shared via GitHub Pages under my Repo. With MKDocs, we will be adding the Material Theme alongside this, which is a popular site theme used on MKDoc sites.</p>
-<p>For this deployment, we will be using Docker Compose. This setup will allow use to easily manage our project documentation, and check over it's contents before moving over to GitHub Pages. </p>
+<p>For this deployment, we will be using Docker Compose. This setup will allow us to easily manage our project documentation, and check over its contents before moving over to GitHub Pages.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>The container uses the host's SSH agent so that <code>mkdocs gh-deploy</code> can push to GitHub. For this to work, the <code>SSH_AUTH_SOCK</code> environment variable must reach Docker Compose.</p>
+<p>By default, <code>sudo</code> resets the environment, which drops <code>SSH_AUTH_SOCK</code> and changes <code>HOME</code> to <code>/root</code>. It is recommended to add your user to the <code>docker</code> group and run Docker commands without <code>sudo</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>docker<span class="w"> </span><span class="nv">$USER</span>
+</span></code></pre></div>
+<p>Log out and back in for the group change to take effect. If you would rather keep using <code>sudo</code>, preserve both variables on each command instead:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo<span class="w"> </span>--preserve-env<span class="o">=</span>SSH_AUTH_SOCK,HOME<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>...
+</span></code></pre></div>
 <h3 id="file-structure">File Structure</h3>
-<p>Before we setup and run our Compose file, we first need to setup our folders where MKDocs will be installed. </p>
-<p>For the main location of the MKDocs folder, I will be creating this under <code>~/pihomelab</code>.</p>
-<p>For the <code>mkdocs</code> folder, we can create our configuration file <code>mkdocs.yml</code>, and enter the following starter config:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>site_name:<span class="w"> </span>My<span class="w"> </span>Docs
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>nav:
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span>-<span class="w"> </span>Home:<span class="w"> </span>index.md
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span>-<span class="w"> </span>About:<span class="w"> </span>about.md
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>theme:
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span>name:<span class="w"> </span><span class="s1">&#39;material&#39;</span>
+<p>Before we set up and run our Compose file, we first need to set up our folders where MKDocs will be installed.</p>
+<p>For the main location of the MKDocs folder, I will be creating this under <code>~/pihomelab</code>. This is also the root of the GitHub repository, so it holds the <code>.git</code> folder.</p>
+<p>In this folder, we can create our configuration file <code>mkdocs.yml</code>, and enter the following starter config:</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">site_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My Docs</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nt">nav</span><span class="p">:</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Home</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">index.md</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">About</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">about.md</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="nt">theme</span><span class="p">:</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;material&#39;</span>
 </span></code></pre></div>
 <p>We can also create sub-folder <code>docs</code>, where all our <code>.md</code> files will be stored.</p>
-<h3 id="docker-compose-file">Docker Compose File</h3>
-<p>For the compose file, we will be creating this under the parent <code>mkdocs</code> folder, named <code>mkdocs-compose.yaml</code>. The following configuration will be used:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>services:
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span>mkdocs:
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span>image:<span class="w"> </span>squidfunk/mkdocs-material
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span>container_name:<span class="w"> </span>mkdocs
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span>networks:
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">      </span>swarm_network:
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span>volumes:
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">      </span>-<span class="w"> </span><span class="si">${</span><span class="nv">MKDOCS_VOLUME</span><span class="si">}</span>:/docs
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">      </span>-<span class="w"> </span><span class="si">${</span><span class="nv">MKDOCS_SSH_VOLUME</span><span class="si">}</span>:/root/.ssh:ro
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">      </span>-<span class="w"> </span><span class="nv">$SSH_AUTH_SOCK</span>:/ssh-agent
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span>environment:
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">      </span>-<span class="w"> </span><span class="nv">SSH_AUTH_SOCK</span><span class="o">=</span>/ssh-agent
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span>stdin_open:<span class="w"> </span><span class="nb">true</span>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span>tty:<span class="w"> </span><span class="nb">true</span>
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>networks:
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">  </span>swarm_network:
-</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">    </span>external:<span class="w"> </span><span class="nb">true</span>
-</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">    </span>driver:<span class="w"> </span>overlay
+<p>The finished folder will look like this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>~/pihomelab
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>├── .env                  # Local values, never committed
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>├── .gitignore
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>├── docs/
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>├── mkdocs.yml
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>└── mkdocs-compose.yaml
 </span></code></pre></div>
-<p>Inside <code>mkdocs</code>, we can run the compose deployment command:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>mkdocs-compose.yaml<span class="w"> </span>up<span class="w"> </span>-d
+<h3 id="ssh-agent-setup">SSH Agent Setup</h3>
+<p>SSH agent sockets normally live at a random, temporary path (e.g. <code>/tmp/ssh-XXXXXXXXXXXX/agent.XXXXX</code>) that is deleted when the SSH session ends. If a container is created with that path, it will fail to start once the session is gone (see Troubleshooting below).</p>
+<p>To avoid this, we run the agent at a fixed path inside a dedicated folder, and mount that folder into the container rather than the socket file itself. Add the following to the end of <code>~/.bashrc</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># SSH agent at a fixed socket path (used by the MKDocs container)</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">SSH_AUTH_SOCK</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.ssh-agent/agent.sock&quot;</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.ssh-agent&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>chmod<span class="w"> </span><span class="m">700</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.ssh-agent&quot;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>ssh-add<span class="w"> </span>-l<span class="w"> </span>&gt;/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$?</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span><span class="c1"># Exit code 2 = no agent listening on the socket, so start a new one</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span>rm<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SSH_AUTH_SOCK</span><span class="s2">&quot;</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span><span class="nb">eval</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>ssh-agent<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SSH_AUTH_SOCK</span><span class="s2">&quot;</span><span class="w"> </span>-s<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>&gt;/dev/null
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="k">fi</span>
+</span></code></pre></div>
+<p>Reload the shell and add your GitHub key to the agent:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>ssh-add<span class="w"> </span>~/.ssh/id_ed25519
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>ssh-add<span class="w"> </span>-l<span class="w">    </span><span class="c1"># should list your key</span>
+</span></code></pre></div>
+<p>The agent keeps running between SSH sessions, so new logins will reuse it. After a reboot, run <code>ssh-add</code> again to reload the key.</p>
+<p>Make sure GitHub is in the host's <code>known_hosts</code> file, as this is mounted into the container so the push isn't blocked by a host key prompt:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ssh<span class="w"> </span>-T<span class="w"> </span>git@github.com
+</span></code></pre></div>
+<h3 id="docker-compose-file">Docker Compose File</h3>
+<p>For the compose file, we will be creating this under the <code>~/pihomelab</code> folder, named <code>mkdocs-compose.yaml</code>. The following configuration will be used:</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nt">services</span><span class="p">:</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">mkdocs</span><span class="p">:</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">squidfunk/mkdocs-material</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mkdocs</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="nt">dns</span><span class="p">:</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${UNBOUND_DOCKER_IP}</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${PI_IP}</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">      </span><span class="nt">swarm_network</span><span class="p">:</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${MKDOCS_VOLUME}:/docs</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${HOME}/.ssh/known_hosts:/root/.ssh/known_hosts:ro</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${HOME}/.ssh-agent:/ssh-agent-dir</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SSH_AUTH_SOCK=/ssh-agent-dir/agent.sock</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="w">    </span><span class="nt">stdin_open</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="w">    </span><span class="nt">tty</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="nt">networks</span><span class="p">:</span>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="w">  </span><span class="nt">swarm_network</span><span class="p">:</span>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="w">    </span><span class="nt">external</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span></code></pre></div>
+<p>Notes on this configuration:
+- <strong>No private keys in the container.</strong> Only <code>known_hosts</code> is mounted from <code>~/.ssh</code>; authentication is handled by the agent.
+- <strong>The agent folder is mounted, not the socket.</strong> If the agent isn't running, the container still starts (pushes just won't authenticate until it is).
+- <strong><code>swarm_network</code> is external</strong>, so <code>driver</code> and <code>attachable</code> are not set here. Those only apply when Compose creates the network itself.
+- <strong><code>${HOME}</code> is taken from your shell</strong>, so it does not need adding to <code>.env</code>. Run Compose as your own user (see Prerequisites) so it points to your home folder rather than <code>/root</code>.</p>
+<p>The other variables are set in a <code>.env</code> file in the same folder as the compose file. Replace the placeholders with your own values:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nv">MKDOCS_VOLUME</span><span class="o">=</span>/home/&lt;user&gt;/pihomelab
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nv">UNBOUND_DOCKER_IP</span><span class="o">=</span>&lt;unbound<span class="w"> </span>container<span class="w"> </span>IP&gt;
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nv">PI_IP</span><span class="o">=</span>&lt;raspberry<span class="w"> </span>pi<span class="w"> </span>IP&gt;
+</span></code></pre></div>
+<p>Do <strong>not</strong> set <code>SSH_AUTH_SOCK</code> in <code>.env</code>. It is handled by <code>~/.bashrc</code> and the compose file.</p>
+<p>As <code>~/pihomelab</code> is the repository, make sure <code>.env</code> is never pushed to GitHub by adding it to <code>.gitignore</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;.env&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/pihomelab/.gitignore
+</span></code></pre></div>
+<p>If <code>.env</code> was committed in the past, remove it from tracking with <code>git rm --cached .env</code>, then commit. Earlier commits will still contain it, so treat any values in it as public.</p>
+<p>Inside <code>~/pihomelab</code>, we can run the compose deployment command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">cd</span><span class="w"> </span>~/pihomelab
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>mkdocs-compose.yaml<span class="w"> </span>up<span class="w"> </span>-d
+</span></code></pre></div>
+<p>We can confirm the container can see the agent and authenticate with GitHub:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>mkdocs<span class="w"> </span>ssh-add<span class="w"> </span>-l
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>mkdocs<span class="w"> </span>ssh<span class="w"> </span>-T<span class="w"> </span>git@github.com
 </span></code></pre></div>
 <h3 id="nginx-setup">Nginx Setup</h3>
-<p>Ensure its nginx server block is setup before proceeding, so that we can connect on using it's given local domain.</p>
+<p>Ensure its nginx server block is set up before proceeding, so that we can connect using its given local domain. As the compose file doesn't publish any ports, nginx reaches the container over <code>swarm_network</code> at <code>http://mkdocs:8000</code>.</p>
 <p>We can test our deployment by connecting to the site, using <code>example.com</code>. Should be presented with the following:</p>
 <p>![[Pasted image 20260826185955.png]]</p>
 <h3 id="updating-mkdocs">Updating MKDocs</h3>
 <p>As for all docker containers, please ensure that the containers are updated with the latest image!!</p>
-<p>Simply run the command below to pull the latest image, and then stop the container, delete the container, and reinstall it again from the <code>compose.yaml</code> file:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>squidfunk/mkdocs-material
+<p>From <code>~/pihomelab</code>, pull the latest image and recreate the container in one step:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>mkdocs-compose.yaml<span class="w"> </span>pull
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>mkdocs-compose.yaml<span class="w"> </span>up<span class="w"> </span>-d
 </span></code></pre></div>
+<p>Compose will stop, remove and recreate the container only if the image has changed.</p>
+<h3 id="troubleshooting">Troubleshooting</h3>
+<p><strong>Error: <code>error mounting "/tmp/ssh-XXXXXXXXXXXX/agent.XXXXX" to rootfs at "/ssh-agent" ... not a directory</code></strong></p>
+<p>This happens on older versions of this setup, which mounted <code>$SSH_AUTH_SOCK</code> directly as a file. The container saved a temporary socket path from a previous SSH session; once that session ended, Docker recreated the missing path as a directory and could not mount it onto the <code>/ssh-agent</code> file inside the container.</p>
+<p>To fix:
+1. Check the stale path the container is using:
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>docker<span class="w"> </span>inspect<span class="w"> </span>mkdocs<span class="w"> </span>--format<span class="w"> </span><span class="s1">&#39;{{range .Mounts}}{{.Source}} -&gt; {{.Destination}}{{&quot;\n&quot;}}{{end}}&#39;</span>
+</span></code></pre></div>
+2. Remove the empty directory Docker created (only if it is an empty directory, not a live socket), using the path shown above:
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>sudo<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/tmp/ssh-XXXXXXXXXXXX
+</span></code></pre></div>
+3. Apply the SSH Agent Setup and compose file above, then recreate the container. <code>docker start</code> or <code>docker compose start</code> will reuse the old config, so it must be recreated:
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>mkdocs-compose.yaml<span class="w"> </span>down
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>mkdocs-compose.yaml<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--force-recreate
+</span></code></pre></div></p>
 
 
 

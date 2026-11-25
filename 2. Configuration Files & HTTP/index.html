@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#server-block-example" class="md-skip">
+        <a href="#2-configuration-files-http" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              2. Configuration Files & HTTP
+              2. Configuration Files &amp; HTTP
             
           </span>
         </div>
@@ -1096,6 +1096,8 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -1104,7 +1106,7 @@
   <span class="md-ellipsis">
     
   
-    2. Configuration Files & HTTP
+    2. Configuration Files &amp; HTTP
   
 
     
@@ -1122,7 +1124,7 @@
   <span class="md-ellipsis">
     
   
-    2. Configuration Files & HTTP
+    2. Configuration Files &amp; HTTP
   
 
     
@@ -1137,6 +1139,8 @@
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
+  
+    
   
   
     <label class="md-nav__title" for="__toc">
@@ -1947,6 +1951,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1985,37 +1991,44 @@
   
 
 
-  <h1>2. Configuration Files & HTTP</h1>
-
-<p>To begin with the configuration of Nginx, we will need to understand it's file structure. From our docker compose file, volume <code>/etc/nginx/conf.d</code> will be pointing at our home user folder. This for me is <code>~/pihomelab/nginx</code>. The docker container has already created and setup the relevant config files, including sites-available folders and the nginx configuration file, which we won't see, but is contained in <code>/etc/nginx</code> of the docker container.</p>
-<p>Any additional config files, mainly being our proxy server block file, will be added under our desired home folder as stated on the volume, and which our docker container will be actively checking and pulling.</p>
-<p>For this setup, we will only need to worry about creating a .conf file, which will contain our server block proxy configuration. CD into your chosen area, and create the .conf file, choosing a name that suits it best for you. My file will be named <code>serverblock.conf</code>.</p>
+<h1 id="2-configuration-files-http">2. Configuration Files &amp; HTTP</h1>
+<p>To begin configuring Nginx, we need to understand its file structure. In the Nginx service file, the volume <code>/etc/nginx/conf.d</code> points at a folder in our home directory, which for me is <code>~/pihomelab/nginx</code> (the <code>NGINXVOLUME</code> path in <code>.env</code>). The main Nginx configuration file, <code>nginx.conf</code>, already exists inside the container under <code>/etc/nginx</code>. We won't see or need to edit it, as it automatically loads every <code>.conf</code> file in <code>conf.d</code>.</p>
+<p>Any additional config files, mainly our proxy server block file, are added to the folder set in the volume, which the Nginx container reads from.</p>
+<p>For this setup, we only need to create a <code>.conf</code> file containing our server block proxy configuration. CD into your chosen folder and create the <code>.conf</code> file, choosing a name that suits you. My file is named <code>serverblock.conf</code>.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd</span><span class="w"> </span>~/pihomelab/nginx
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>sudo<span class="w"> </span>touch<span class="w"> </span>serverblock.conf
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>nano<span class="w"> </span>serverblock.conf
 </span></code></pre></div>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>serverblock.conf
-</span></code></pre></div>
+<blockquote>
+<p><strong>Note:</strong> Files must end in <code>.conf</code>, otherwise Nginx ignores them. Creating them without <code>sudo</code> keeps them owned by your user, so they can be edited later without permission errors.</p>
+</blockquote>
+<hr />
 <h5 id="server-block-example">Server Block Example</h5>
-<p>For a basic HTTP setup which will be used for our Pihole service, we can use the following template:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>server {
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    listen 80;
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    server_name example.com www.example.com http://www.example.com; #Replace with your domain/IP           
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    location / {
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        proxy_pass http://pihole:80; #Backend server URL/port           
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        proxy_set_header Host $host;
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        proxy_set_header X-Real-IP $remote_addr;           
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        proxy_set_header X-Forwarded-For 
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>        $proxy_add_x_forwarded_for;           
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>        proxy_set_header X-Forwarded-Proto $scheme;       
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    }   
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>}
+<p>For a basic HTTP setup for our Pihole service, we can use the following template:</p>
+<div class="language-nginx highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">server</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="kn">listen</span><span class="w"> </span><span class="mi">80</span><span class="p">;</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="kn">server_name</span><span class="w"> </span><span class="s">example.com</span><span class="w"> </span><span class="s">www.example.com</span><span class="p">;</span><span class="w"> </span><span class="c1"># Replace with your domain</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://pihole:80</span><span class="p">;</span><span class="w"> </span><span class="c1"># Backend container name/port</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$host</span><span class="p">;</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Real-IP</span><span class="w"> </span><span class="nv">$remote_addr</span><span class="p">;</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-For</span><span class="w"> </span><span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-Proto</span><span class="w"> </span><span class="nv">$scheme</span><span class="p">;</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">}</span>
 </span></code></pre></div>
-<p>On the line <code>proxy_pass</code>, we will only need to call 'pihole' as the docker container, as opposed to our IP Address. Port 80 is then added, as this is the default port Pihole uses.</p>
-<p>With the lines added to the file, we can save this and test the configuration for any syntax errors. As we will need to run the command inside of the docker container, <code>docker exec</code> is added:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>docker exec nginx_proxy nginx -t
+<p>On the <code>proxy_pass</code> line, we only need to give <code>pihole</code>, the name of the Docker container, rather than an IP address. Port 80 is added, as this is the default port Pihole uses. This works because Nginx and Pihole are both on <code>swarm_network</code>.</p>
+<blockquote>
+<p><strong>Tip:</strong> As covered in <strong>1. Installation</strong>, using <code>set $upstream pihole;</code> with <code>proxy_pass http://$upstream:80;</code> stops Nginx failing to start if the Pihole container isn't running.</p>
+</blockquote>
+<p>With the lines added, save the file and test the configuration for syntax errors. Nginx runs as the swarm service <code>proxy_nginx</code>, so the command is run inside its container with <code>docker exec</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="k">$(</span>docker<span class="w"> </span>ps<span class="w"> </span>-q<span class="w"> </span>-f<span class="w"> </span><span class="nv">name</span><span class="o">=</span>proxy_nginx<span class="k">)</span><span class="w"> </span>nginx<span class="w"> </span>-t
 </span></code></pre></div>
-<p>If all is good, we can then reload nginx to apply the changes:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>docker exec nginx_proxy nginx -s reload
+<p>If all is good, reload Nginx to apply the changes:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="k">$(</span>docker<span class="w"> </span>ps<span class="w"> </span>-q<span class="w"> </span>-f<span class="w"> </span><span class="nv">name</span><span class="o">=</span>proxy_nginx<span class="k">)</span><span class="w"> </span>nginx<span class="w"> </span>-s<span class="w"> </span>reload
+</span></code></pre></div>
+<p>If the reload doesn't pick up the changes, restart the service instead:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>docker<span class="w"> </span>service<span class="w"> </span>update<span class="w"> </span>--force<span class="w"> </span>proxy_nginx
 </span></code></pre></div>
 
 

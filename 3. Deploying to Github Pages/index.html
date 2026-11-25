@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#initialize-the-host-ssh-agent-and-load-keys" class="md-skip">
+        <a href="#check-the-repository-remote" class="md-skip">
           Skip to content
         </a>
       
@@ -645,10 +645,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#initialize-the-host-ssh-agent-and-load-keys" class="md-nav__link">
+  <a href="#check-the-repository-remote" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Initialize the Host SSH Agent and Load Keys
+        Check the Repository Remote
       
     </span>
   </a>
@@ -656,10 +656,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuring-the-docker-compose-file" class="md-nav__link">
+  <a href="#check-the-host-ssh-agent" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuring the Docker Compose File
+        Check the Host SSH Agent
       
     </span>
   </a>
@@ -667,10 +667,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#verify-container-file-access" class="md-nav__link">
+  <a href="#verify-the-container-can-see-the-agent" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Verify Container File Access
+        Verify the Container Can See the Agent
       
     </span>
   </a>
@@ -689,32 +689,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#test-general-github-authentication" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Test General GitHub Authentication
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#add-the-jekyll-bypass-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Add the Jekyll Bypass File
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#deploy-the-documentation" class="md-nav__link">
     <span class="md-ellipsis">
       
         Deploy the Documentation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configure-github-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configure GitHub Pages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
       
     </span>
   </a>
@@ -1217,7 +1217,7 @@
   <span class="md-ellipsis">
     
   
-    2. Configuration Files & HTTP
+    2. Configuration Files &amp; HTTP
   
 
     
@@ -2021,10 +2021,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#initialize-the-host-ssh-agent-and-load-keys" class="md-nav__link">
+  <a href="#check-the-repository-remote" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Initialize the Host SSH Agent and Load Keys
+        Check the Repository Remote
       
     </span>
   </a>
@@ -2032,10 +2032,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuring-the-docker-compose-file" class="md-nav__link">
+  <a href="#check-the-host-ssh-agent" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuring the Docker Compose File
+        Check the Host SSH Agent
       
     </span>
   </a>
@@ -2043,10 +2043,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#verify-container-file-access" class="md-nav__link">
+  <a href="#verify-the-container-can-see-the-agent" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Verify Container File Access
+        Verify the Container Can See the Agent
       
     </span>
   </a>
@@ -2065,32 +2065,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#test-general-github-authentication" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Test General GitHub Authentication
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#add-the-jekyll-bypass-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Add the Jekyll Bypass File
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#deploy-the-documentation" class="md-nav__link">
     <span class="md-ellipsis">
       
         Deploy the Documentation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configure-github-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configure GitHub Pages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
       
     </span>
   </a>
@@ -2119,56 +2119,56 @@
 
   <h1>3. Deploying to Github Pages</h1>
 
-<p>As it is running in a container, and we need to run mkdocs gh-deploy, we will need to run this inside the container via:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>docker-compose-mkdocs-1<span class="w"> </span>mkdocs<span class="w"> </span>gh-deploy
+<p>As MKDocs is running in a container, <code>mkdocs gh-deploy</code> needs to be run inside the container. This is done with <code>docker exec</code>, followed by the container name (<code>mkdocs</code>, as set by <code>container_name</code> in the compose file) and the command itself:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>mkdocs<span class="w"> </span>mkdocs<span class="w"> </span>gh-deploy
 </span></code></pre></div>
-<p><code>docker-compose-mkdocs-1</code> being the container name, followed by the command itself. </p>
-<h3 id="initialize-the-host-ssh-agent-and-load-keys">Initialize the Host SSH Agent and Load Keys</h3>
-<p>Start your host SSH agent and load your private key so your passphrase is cached in memory. Verify that the agent successfully holds the identity and check your active socket path.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">eval</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>ssh-agent<span class="w"> </span>-s<span class="k">)</span><span class="s2">&quot;</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>ssh-add<span class="w"> </span>~/.ssh/id_ed25519
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>ssh-add<span class="w"> </span>-l
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$SSH_AUTH_SOCK</span>
+<p>The container authenticates with GitHub through the host's SSH agent, which is set up in <strong>1. Installation for MkDocs</strong> (SSH Agent Setup and Docker Compose File). Complete those sections before continuing.</p>
+<h3 id="check-the-repository-remote">Check the Repository Remote</h3>
+<p><code>gh-deploy</code> pushes to whichever remote the repository uses. For the SSH agent to be used, the remote must be an SSH URL (<code>git@github.com:...</code>) rather than HTTPS. On the host, from the repository folder:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">cd</span><span class="w"> </span>~/pihomelab
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>git<span class="w"> </span>remote<span class="w"> </span>-v
 </span></code></pre></div>
-<h3 id="configuring-the-docker-compose-file">Configuring the Docker Compose File</h3>
-<p>Modify your <code>mkdocs-compose.yml</code> to mount your local repository, your host <code>.ssh</code> folder as read-only (<code>:ro</code>), and your SSH agent socket.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>services:
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span>mkdocs:
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span>image:<span class="w"> </span>squidfunk/mkdocs-material
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span>ports:
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">      </span>-<span class="w"> </span><span class="s2">&quot;8005:8000&quot;</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span>dns:
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">      </span>-<span class="w"> </span><span class="si">${</span><span class="nv">UNBOUND_DOCKER_IP</span><span class="si">}</span><span class="w"> </span><span class="c1"># Points to your Unbound</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">      </span>-<span class="w"> </span><span class="si">${</span><span class="nv">PI_IP</span><span class="si">}</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span>volumes:
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">      </span>-<span class="w"> </span>~/pihomelab:/docs
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">      </span>-<span class="w"> </span>~/.ssh:/root/.ssh:ro<span class="w"> </span><span class="c1"># Points to the keys and knownhosts</span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">      </span>-<span class="w"> </span><span class="si">${</span><span class="nv">SSH_AUTH_SOCK</span><span class="si">}</span>:/ssh-agent<span class="w"> </span><span class="c1"># Our ssh agent used for the passkey. /tmp/ is </span>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span>environment:
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">      </span>-<span class="w"> </span><span class="nv">SSH_AUTH_SOCK</span><span class="o">=</span>/ssh-agent
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">    </span>stdin_open:<span class="w"> </span><span class="nb">true</span>
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">    </span>tty:<span class="w"> </span><span class="nb">true</span>
+<p>If it shows an <code>https://</code> URL, switch it to SSH:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>git<span class="w"> </span>remote<span class="w"> </span>set-url<span class="w"> </span>origin<span class="w"> </span>git@github.com:&lt;username&gt;/&lt;repo&gt;.git
 </span></code></pre></div>
-<h3 id="verify-container-file-access">Verify Container File Access</h3>
-<p>Confirm that the running container can correctly read your mounted keys and known hosts directory from inside the file system.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>docker-compose-mkdocs-1<span class="w"> </span>ls<span class="w"> </span>-la<span class="w"> </span>/root/.ssh
+<p>The container only sees the folder mounted at <code>/docs</code> (<code>MKDOCS_VOLUME</code>, i.e. <code>~/pihomelab</code>). As this is the repository root, the <code>.git</code> folder is included and the container can find the repository. If <code>MKDOCS_VOLUME</code> is ever pointed at a sub-folder instead, <code>gh-deploy</code> will fail with <code>not a git repository</code>.</p>
+<h3 id="check-the-host-ssh-agent">Check the Host SSH Agent</h3>
+<p>Confirm the agent is running and holds your key. After a reboot, the key needs to be added again:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ssh-add<span class="w"> </span>-l
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>ssh-add<span class="w"> </span>~/.ssh/id_ed25519<span class="w">   </span><span class="c1"># only if no key is listed</span>
 </span></code></pre></div>
+<h3 id="verify-the-container-can-see-the-agent">Verify the Container Can See the Agent</h3>
+<p>Confirm the <code>known_hosts</code> file and the agent socket are mounted, and that the agent is reachable from inside the container:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>mkdocs<span class="w"> </span>ls<span class="w"> </span>-la<span class="w"> </span>/root/.ssh<span class="w"> </span>/ssh-agent-dir
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>mkdocs<span class="w"> </span>ssh-add<span class="w"> </span>-l
+</span></code></pre></div>
+<p>The second command should list the same key as on the host.</p>
 <h3 id="test-github-authentication-inside-the-container">Test GitHub Authentication Inside the Container</h3>
-<p>Verify that the container can successfully authenticate against GitHub using the mapped SSH agent and known hosts file.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>docker-compose-mkdocs-1<span class="w"> </span>ssh<span class="w"> </span>-o<span class="w"> </span><span class="nv">UserKnownHostsFile</span><span class="o">=</span>/root/.ssh/known_hosts<span class="w"> </span>-T<span class="w"> </span>git@github.com
+<p>Verify that the container can authenticate against GitHub using the agent:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>mkdocs<span class="w"> </span>ssh<span class="w"> </span>-T<span class="w"> </span>git@github.com
 </span></code></pre></div>
 <p><em>Expected response:</em> <code>Hi username! You've successfully authenticated, but GitHub does not provide shell access.</code></p>
-<h3 id="test-general-github-authentication">Test General GitHub Authentication</h3>
-<p>Confirm standard SSH connectivity and authentication with GitHub via the container.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>docker-compose-1<span class="w"> </span>ssh<span class="w"> </span>-T<span class="w"> </span>git@github.com
-</span></code></pre></div>
-<h3 id="add-the-jekyll-bypass-file">Add the Jekyll Bypass File</h3>
-<p>Create an empty <code>.nojekyll</code> file inside your source documentation folder to instruct GitHub Pages to serve the raw HTML files directly without running Jekyll.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>touch<span class="w"> </span>~/pihomelabs/.nojekyll
-</span></code></pre></div>
 <h3 id="deploy-the-documentation">Deploy the Documentation</h3>
-<p>Run the deployment command using your active socket path to push the built site to your repository's <code>gh-pages</code> branch.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>mkdocs-mkdocs-1<span class="w"> </span>mkdocs<span class="w"> </span>gh-deploy<span class="w"> </span>--force
+<p>Build the site and push it to the repository's <code>gh-pages</code> branch:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>mkdocs<span class="w"> </span>mkdocs<span class="w"> </span>gh-deploy<span class="w"> </span>--force
+</span></code></pre></div>
+<p><code>--force</code> overwrites the <code>gh-pages</code> branch with the new build. This is safe as long as nothing else commits to that branch. <code>gh-deploy</code> also adds the <code>.nojekyll</code> file to the branch automatically, so GitHub Pages serves the built HTML as-is.</p>
+<p>Only the <code>docs</code> folder is built into the site, so <code>.env</code> and <code>mkdocs-compose.yaml</code> are not published to GitHub Pages. They are still part of the repository itself, which is why <code>.env</code> is listed in <code>.gitignore</code> (see <strong>1. Installation for MkDocs</strong>).</p>
+<h3 id="configure-github-pages">Configure GitHub Pages</h3>
+<p>This only needs doing once. In the repository on GitHub, go to <strong>Settings → Pages</strong>, and under <strong>Build and deployment</strong> set:
+- <strong>Source:</strong> Deploy from a branch
+- <strong>Branch:</strong> <code>gh-pages</code>, folder <code>/ (root)</code></p>
+<p>The site will be published at <code>https://&lt;username&gt;.github.io/&lt;repo&gt;/</code> after a short delay.</p>
+<h3 id="troubleshooting">Troubleshooting</h3>
+<p><strong><code>fatal: detected dubious ownership in repository at '/docs'</code></strong></p>
+<p>The container runs as root, while the files belong to your user on the host, so Git refuses to use the repository. Mark the folder as safe inside the container:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>mkdocs<span class="w"> </span>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>--add<span class="w"> </span>safe.directory<span class="w"> </span>/docs
+</span></code></pre></div>
+<p>This setting is lost when the container is recreated (e.g. after an image update), so re-run it if the error returns.</p>
+<p><strong><code>Permission denied (publickey)</code></strong></p>
+<p>The container can't reach the agent, or the agent has no key loaded. Re-run the checks in "Check the Host SSH Agent" and "Verify the Container Can See the Agent". If <code>ssh-add -l</code> works on the host but not in the container, recreate the container so it picks up the agent folder mount:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">cd</span><span class="w"> </span>~/pihomelab
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>mkdocs-compose.yaml<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--force-recreate
 </span></code></pre></div>
 
 
